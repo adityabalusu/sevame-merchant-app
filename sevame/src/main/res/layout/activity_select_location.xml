@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:clickable="false">
+    <fragment
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.google.android.gms.maps.SupportMapFragment" android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true" android:layout_above="@+id/saved_locations"/>
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/maps_marker" android:visibility="gone"
+            android:src="@drawable/places_with_shadow" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
+            />
+
+    <in.geekvalet.sevame.libs.FlowLayout
+            android:id="@+id/saved_locations"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/save_location_button" />
+
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:text="Save this location"
+            android:id="@+id/save_location_button" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true"
+            android:textColor="@drawable/green_text" android:background="@drawable/white_button"
+            />
+
+</RelativeLayout>
+

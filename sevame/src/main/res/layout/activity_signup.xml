@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="in.geekvalet.sevame.ui.SignupActivity$PlaceholderFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone"
+                android:id="@+id/phone_number_label" android:layout_alignLeft="@+id/phone_number"
+                android:textStyle="bold" android:layout_marginTop="10dp"/>
+
+        <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:padding="7dp"
+                android:id="@+id/phone_number"
+                android:layout_below="@+id/phone_number_label"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="3dp"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Name"
+                  android:id="@+id/name_label" android:layout_below="@+id/phone_number"
+                  android:layout_alignLeft="@+id/name"
+                  android:textStyle="bold"
+                  android:layout_marginTop="10dp"/>
+
+        <EditText android:layout_width="300dp" android:layout_height="50dp" android:inputType="textPersonName"
+                  android:id="@+id/name"
+                  android:padding="7dp"
+                  android:layout_below="@+id/name_label" android:layout_centerHorizontal="true"
+                  android:layout_marginTop="3dp"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_marginTop="20dp"
+                    android:text="Sending sms to your phone"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    android:id="@+id/progress_text" android:layout_below="@+id/name" android:layout_centerHorizontal="true"/>
+
+            <ProgressBar
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progress_spinner"
+                    android:layout_marginLeft="5dp" android:visibility="gone"
+                    android:layout_alignTop="@+id/progress_text" android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+
+        <Button
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:text="SIGN UP"
+                android:id="@+id/signup_button" android:layout_below="@+id/progress_text" android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold" android:textSize="20sp"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+</RelativeLayout>

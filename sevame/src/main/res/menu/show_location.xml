@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sevame="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="in.geekvalet.sevame.ui.ShowLocationActivity" >
+    
+    <item android:id="@+id/action_show_directions"
+          android:icon="@android:drawable/ic_menu_directions"
+          sevame:showAsAction="always" />
+</menu>

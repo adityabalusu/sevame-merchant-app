@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Geek Valet</string>
+    <string name="title_activity_pending_jobs">Pending Jobs</string>
+    <string name="title_activity_requirement_responses">Geek Valet</string>
+    <string name="title_activity_conversation">Geek Valet</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_select_location">Select Location</string>
+    <string name="title_activity_show_location">Location</string>
+    <string name="title_activity_create_requirement">Add Requirement</string>
+    <string name="title_activity_create_merchant">Add a merchant</string>
+
+</resources>

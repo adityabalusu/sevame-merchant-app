@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp">
+    <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkbox"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Vimal"
+            android:layout_marginTop="10dp"
+            android:id="@+id/customer_name"
+            android:layout_alignParentTop="true"
+            android:textColor="#031a8c"
+            android:layout_toRightOf="@+id/customer_photo"/>
+
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+91-9620917775"
+            android:autoLink="phone"
+            android:id="@+id/phone_number"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/customer_name" android:layout_toRightOf="@+id/customer_photo"/>
+
+    <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#e3e2e7"
+            android:layout_centerHorizontal="true" android:id="@+id/bottom_line"
+            android:layout_below="@id/phone_number"/>
+
+    <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/customer_photo"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentStart="false" android:layout_toRightOf="@+id/checkbox"
+            android:layout_centerVertical="true" android:src="@drawable/places_with_shadow"/>
+</RelativeLayout>
