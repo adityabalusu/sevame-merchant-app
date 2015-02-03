@@ -45,4 +45,9 @@ public class MockDataSource implements DataStore{
     public Integer getAppVersion() {
         return null;
     }
+
+    @Override
+    public void removeAuthToken() {
+
+    }
 }

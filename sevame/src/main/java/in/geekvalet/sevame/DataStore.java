@@ -10,7 +10,6 @@ public interface DataStore {
 
     ServiceProvider getServiceProvider();
 
-
     void saveAuthToken(String authToken);
 
     String getAuthToken();
@@ -22,4 +21,6 @@ public interface DataStore {
     void saveAppVersion(Integer appVersion);
 
     Integer getAppVersion();
+
+    void removeAuthToken();
 }

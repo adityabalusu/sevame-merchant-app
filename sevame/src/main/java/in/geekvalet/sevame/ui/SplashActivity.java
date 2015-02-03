@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import in.geekvalet.sevame.Application;
 import in.geekvalet.sevame.DataStore;
+import in.geekvalet.sevame.model.ServiceProvider;
 import in.geekvalet.sevame.service.GcmRefreshService;
 
 public class SplashActivity extends FragmentActivity {
@@ -20,16 +21,16 @@ public class SplashActivity extends FragmentActivity {
         new GcmRefreshService(this).invoke();
     }
 
-
     private void selectActivity() {
         DataStore dataStore = Application.getDataStore();
+        ServiceProvider serviceProvider = dataStore.getServiceProvider();
 
         if(dataStore.getAuthToken() != null) {
             Intent intent = new Intent(SplashActivity.this, JobsActivity.class);
             startActivity(intent);
             finish();
         } else {
-            Intent intent = new Intent(SplashActivity.this, SignupActivity.class);
+            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }

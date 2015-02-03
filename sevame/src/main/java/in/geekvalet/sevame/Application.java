@@ -2,8 +2,17 @@ package in.geekvalet.sevame;
 
 import android.content.Context;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.internal.bind.DateTypeAdapter;
+
+import java.util.Date;
+
 import in.geekvalet.sevame.service.MockSevaMeService;
 import in.geekvalet.sevame.service.SevaMeService;
+import retrofit.RestAdapter;
+import retrofit.converter.GsonConverter;
 
 /**
  * Created by gautam on 23/6/14.
@@ -22,8 +31,7 @@ public class Application extends android.app.Application {
     }
 
     public static DataStore getDataStore() {
-        return new MockDataSource();
-        //return new DataStoreImpl(instance.getApplicationContext());
+        return new DataStoreImpl(instance.getApplicationContext());
     }
 
     public static TaskManager getTaskManager() {
@@ -35,13 +43,18 @@ public class Application extends android.app.Application {
     }
 
     public static SevaMeService getSevaMeService() {
-        return new MockSevaMeService();
-//        RestAdapter restAdapter = new RestAdapter.Builder()
-//                .setEndpoint(SevaMeService.BASE_URL)
-//                .setLogLevel(RestAdapter.LogLevel.FULL)
-//                .build();
-//
-//        return restAdapter.create(SevaMeService.class);
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .registerTypeAdapter(Date.class, new DateTypeAdapter())
+                .create();
+
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setConverter(new GsonConverter(gson))
+                .setEndpoint(SevaMeService.BASE_URL)
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .build();
+
+        return restAdapter.create(SevaMeService.class);
     }
 
     @Override

@@ -3,10 +3,16 @@ package in.geekvalet.sevame.libs;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Base64;
+
+import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created with IntelliJ IDEA.
@@ -53,6 +59,10 @@ public class KeyValueStore {
         editor.commit();
     }
 
+    public void write(String key, Object o) {
+        write(key, new Gson().toJson(o));
+    }
+
     public Boolean getBoolean(String key, boolean value) {
         return this.preferences.getBoolean(key, value);
     }
@@ -84,6 +94,16 @@ public class KeyValueStore {
 
             return null;
         }
+    }
+
+    public<T> T getObject(String key, Class<T> classOfT, T value) {
+        String data = getString(key, null);
+
+        if(data == null) {
+            return value;
+        }
+
+        return new Gson().fromJson(data, classOfT);
     }
 
     public void remove(String key) {

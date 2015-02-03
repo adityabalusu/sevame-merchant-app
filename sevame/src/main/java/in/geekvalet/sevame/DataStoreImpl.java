@@ -16,22 +16,17 @@ public class DataStoreImpl implements DataStore {
 
     @Override
     public void saveServiceProvider(ServiceProvider serviceProvider) {
-        keyValueStore.write("serviceProviderId", serviceProvider.getId());
-        keyValueStore.write("phoneNumber", serviceProvider.getPhoneNumber());
-        keyValueStore.write("name", serviceProvider.getName());
+        keyValueStore.write("serviceProvider", serviceProvider);
     }
 
     @Override
     public ServiceProvider getServiceProvider() {
-        String serviceProviderId = keyValueStore.getString("serviceProviderId", null);
-        String phoneNumber = keyValueStore.getString("phoneNumber", null);
-        String name = keyValueStore.getString("name", null);
+        return keyValueStore.getObject("serviceProvider", ServiceProvider.class, null);
+    }
 
-        if(serviceProviderId == null || phoneNumber == null || name == null) {
-            return null;
-        }
-
-        return new ServiceProvider(serviceProviderId, phoneNumber, name);
+    @Override
+    public void removeAuthToken() {
+        keyValueStore.remove("authToken");
     }
 
     @Override

@@ -17,6 +17,11 @@ import retrofit.http.Path;
 public class MockSevaMeService implements SevaMeService {
 
     @Override
+    public Response login(@Body LoginRequest loginRequest) {
+        return null;
+    }
+
+    @Override
     public ServiceProvider createServiceProvider(@Body CreateServiceProviderRequest body) {
         return null;
     }

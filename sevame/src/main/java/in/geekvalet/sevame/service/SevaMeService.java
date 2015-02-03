@@ -16,7 +16,15 @@ import java.util.Map;
  */
 public interface SevaMeService {
 
-    public static String BASE_URL = "http://ec2-54-255-190-212.ap-southeast-1.compute.amazonaws.com";
+    public static String BASE_URL = "http://accurox.com/api";
+
+    public static class LoginRequest {
+        public String accessToken;
+
+        public LoginRequest(String accessToken) {
+            this.accessToken = accessToken;
+        }
+    }
 
     public static class CreateServiceProviderRequest {
 
@@ -60,12 +68,18 @@ public interface SevaMeService {
 
         public List<T> objects;
     }
+
     public  static class UpdateServiceProviderRequest {
         public Map<String, List<Skill>> skills;
 
     }
+
+    @POST("/serviceprovider/auth/google/")
+    Response login(@Body LoginRequest loginRequest);
+
     @POST("/serviceprovider/")
     ServiceProvider createServiceProvider(@Body CreateServiceProviderRequest body);
+
     @POST("/serviceprovider/{serviceProviderId}")
     ServiceProvider updateServiceProvider(@Path("serviceProviderId") String serviceProviderId,
                                           @Body UpdateServiceProviderRequest request);
