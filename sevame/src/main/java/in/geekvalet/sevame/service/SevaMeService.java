@@ -77,6 +77,9 @@ public interface SevaMeService {
     @POST("/serviceprovider/auth/google/")
     Response login(@Body LoginRequest loginRequest);
 
+    @GET("/serviceprovider/{serviceProviderId}")
+    Response authTest(@Path("serviceProviderId") String serviceProviderId);
+
     @POST("/serviceprovider/")
     ServiceProvider createServiceProvider(@Body CreateServiceProviderRequest body);
 

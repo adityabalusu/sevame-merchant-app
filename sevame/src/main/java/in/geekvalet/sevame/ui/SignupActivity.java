@@ -13,6 +13,8 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
+
+import in.geekvalet.sevame.Application;
 import in.geekvalet.sevame.R;
 import in.geekvalet.sevame.model.ServiceProvider;
 import in.geekvalet.sevame.service.CreateServiceProvider;
@@ -71,6 +73,9 @@ public class SignupActivity extends ActionBarActivity {
         phoneNumber = (EditText) findViewById(R.id.phone_number);
         name = (EditText) findViewById(R.id.name);
         spinner = (ProgressBar) findViewById(R.id.progress_spinner);
+
+        name.setText(Application.getDataStore().getServiceProvider().getName());
+        name.setEnabled(false);
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -109,15 +109,20 @@ public class LoginActivity extends FragmentActivity {
         private void login() throws IOException, JSONException {
             String token = fetchToken();
 
+            removeSessionId();
             Response response = Application.getSevaMeService().login(new SevaMeService.LoginRequest(token));
 
             if(isSuccessful(response)) {
                 saveSessionId(response);
                 saveServiceProvider(response);
-                show("Login successful");
+                onLoginSuccessful();
             } else {
-                show("Failed to login. Please try again later");
+                onLoginFail();
             }
+        }
+
+        private void removeSessionId() {
+            Application.getDataStore().removeAuthToken();
         }
 
         private void saveServiceProvider(Response response) {
@@ -166,6 +171,25 @@ public class LoginActivity extends FragmentActivity {
         private void saveAuthToken(String token) {
             DataStore ds = Application.getDataStore();
             ds.saveAuthToken(token);
+        }
+    }
+
+    private void onLoginFail() {
+        show("Failed to login. Please try again later");
+        loginButton.setEnabled(true);
+    }
+
+    private void onLoginSuccessful() {
+        ServiceProvider serviceProvider = Application.getDataStore().getServiceProvider();
+
+        if(!serviceProvider.isVerified()) {
+            Intent intent = new Intent(this, SignupActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Intent intent = new Intent(this, JobsActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 

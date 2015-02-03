@@ -12,23 +12,6 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Phone"
-                android:id="@+id/phone_number_label" android:layout_alignLeft="@+id/phone_number"
-                android:textStyle="bold" android:layout_marginTop="10dp"/>
-
-        <EditText
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:padding="7dp"
-                android:id="@+id/phone_number"
-                android:layout_below="@+id/phone_number_label"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="3dp"/>
-
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Name"
                   android:id="@+id/name_label" android:layout_below="@+id/phone_number"
                   android:layout_alignLeft="@+id/name"
@@ -40,6 +23,24 @@
                   android:padding="7dp"
                   android:layout_below="@+id/name_label" android:layout_centerHorizontal="true"
                   android:layout_marginTop="3dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:id="@+id/phone_number_label" android:layout_alignLeft="@+id/phone_number"
+            android:textStyle="bold" android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:padding="7dp"
+            android:id="@+id/phone_number"
+            android:layout_below="@+id/phone_number_label"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"/>
 
         <LinearLayout
             android:orientation="horizontal"

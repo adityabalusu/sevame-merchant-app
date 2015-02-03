@@ -11,6 +11,7 @@ import java.util.Date;
 
 import in.geekvalet.sevame.service.MockSevaMeService;
 import in.geekvalet.sevame.service.SevaMeService;
+import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
 
@@ -48,10 +49,21 @@ public class Application extends android.app.Application {
                 .registerTypeAdapter(Date.class, new DateTypeAdapter())
                 .create();
 
+        RequestInterceptor requestInterceptor = new RequestInterceptor() {
+            @Override
+            public void intercept(RequestInterceptor.RequestFacade request) {
+                String authToken = Application.getDataStore().getAuthToken();
+                if(authToken != null) {
+                    request.addHeader("X-Session-ID", authToken);
+                }
+            }
+        };
+
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setConverter(new GsonConverter(gson))
                 .setEndpoint(SevaMeService.BASE_URL)
                 .setLogLevel(RestAdapter.LogLevel.FULL)
+                .setRequestInterceptor(requestInterceptor)
                 .build();
 
         return restAdapter.create(SevaMeService.class);

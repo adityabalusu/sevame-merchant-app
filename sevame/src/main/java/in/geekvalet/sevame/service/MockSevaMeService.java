@@ -22,6 +22,11 @@ public class MockSevaMeService implements SevaMeService {
     }
 
     @Override
+    public Response authTest(@Path("serviceProviderId") String serviceProviderId) {
+        return null;
+    }
+
+    @Override
     public ServiceProvider createServiceProvider(@Body CreateServiceProviderRequest body) {
         return null;
     }

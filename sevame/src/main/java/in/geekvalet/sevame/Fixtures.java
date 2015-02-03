@@ -70,6 +70,6 @@ public class Fixtures {
     }
 
     public ServiceProvider getServiceProvider() {
-        return new ServiceProvider("1234", "9620917775", "Gautam BT");
+        return null;
     }
 }

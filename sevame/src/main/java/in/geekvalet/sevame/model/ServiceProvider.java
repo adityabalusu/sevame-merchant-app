@@ -10,12 +10,7 @@ public class ServiceProvider implements Serializable {
     private String phoneNumber;
     private String name;
     private String email;
-
-    public ServiceProvider(String id, String phoneNumber, String name) {
-        this.id = id;
-        this.phoneNumber = phoneNumber;
-        this.name = name;
-    }
+    private Boolean verified;
 
     public String getId() {
         return id;
@@ -43,5 +38,13 @@ public class ServiceProvider implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isVerified() {
+        if(verified == null) {
+            return false;
+        }
+
+        return verified;
     }
 }
