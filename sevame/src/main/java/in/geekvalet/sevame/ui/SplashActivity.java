@@ -4,13 +4,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
-
-import java.util.Objects;
 
 import in.geekvalet.sevame.Application;
 import in.geekvalet.sevame.DataStore;
-import in.geekvalet.sevame.model.Service;
 import in.geekvalet.sevame.model.ServiceProvider;
 import in.geekvalet.sevame.service.GcmRefreshService;
 import retrofit.RetrofitError;
@@ -71,7 +67,7 @@ public class SplashActivity extends FragmentActivity {
                     startActivity(intent);
                     finish();
                 } else if(!serviceProvider.isVerified()) {
-                    Intent intent = new Intent(SplashActivity.this, SignupActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, VerifyMobileActivity.class);
                     startActivity(intent);
                     finish();
                 } else {

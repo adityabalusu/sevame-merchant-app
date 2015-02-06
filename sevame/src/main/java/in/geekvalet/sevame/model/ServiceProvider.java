@@ -47,4 +47,8 @@ public class ServiceProvider implements Serializable {
 
         return verified;
     }
+
+    public void markAsVerified() {
+        verified = true;
+    }
 }

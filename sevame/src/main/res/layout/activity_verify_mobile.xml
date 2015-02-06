@@ -2,7 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="in.geekvalet.sevame.ui.SignupActivity$PlaceholderFragment">
+                tools:context="in.geekvalet.sevame.ui.VerifyMobileActivity$PlaceholderFragment">
 
     <LinearLayout
         android:orientation="vertical"
@@ -71,7 +71,7 @@
         <Button
                 android:layout_width="150dp"
                 android:layout_height="60dp"
-                android:text="SIGN UP"
+                android:text="Verify Mobile"
                 android:id="@+id/signup_button" android:layout_below="@+id/progress_text" android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:textStyle="bold" android:textSize="20sp"

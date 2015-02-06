@@ -33,7 +33,6 @@ import in.geekvalet.sevame.Application;
 import in.geekvalet.sevame.DataStore;
 import in.geekvalet.sevame.R;
 import in.geekvalet.sevame.model.ServiceProvider;
-import in.geekvalet.sevame.service.GcmRefreshService;
 import in.geekvalet.sevame.service.SevaMeService;
 import retrofit.client.Response;
 import retrofit.client.Header;
@@ -183,7 +182,7 @@ public class LoginActivity extends FragmentActivity {
         ServiceProvider serviceProvider = Application.getDataStore().getServiceProvider();
 
         if(!serviceProvider.isVerified()) {
-            Intent intent = new Intent(this, SignupActivity.class);
+            Intent intent = new Intent(this, VerifyMobileActivity.class);
             startActivity(intent);
             finish();
         } else {

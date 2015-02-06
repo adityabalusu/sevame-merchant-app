@@ -26,35 +26,6 @@ public interface SevaMeService {
         }
     }
 
-    public static class CreateServiceProviderRequest {
-
-        public String name;
-
-        public String phoneNumber;
-        public Boolean initiateVerification;
-        public String gcmRegistrationId;
-    }
-    public static class VerifyServiceProviderRequest {
-        public String otp;
-
-        public String authToken;
-        public VerifyServiceProviderRequest(String authToken, String otp) {
-            this.authToken = authToken;
-            this.otp = otp;
-        }
-        public VerifyServiceProviderRequest() {
-        }
-
-    }
-
-    public static class VerifyServiceProviderResponse {
-        public Boolean verified;
-
-        public VerifyServiceProviderResponse(Boolean verified) {
-            this.verified = verified;
-        }
-    }
-
     public static class UpdateGcmRegistrationIdRequest {
         public final String gcmRegId;
 
@@ -70,8 +41,13 @@ public interface SevaMeService {
     }
 
     public  static class UpdateServiceProviderRequest {
+        public String phoneNumber;
         public Map<String, List<Skill>> skills;
 
+        public UpdateServiceProviderRequest setPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+            return this;
+        }
     }
 
     @POST("/serviceprovider/auth/google/")
@@ -80,10 +56,7 @@ public interface SevaMeService {
     @GET("/serviceprovider/{serviceProviderId}")
     Response authTest(@Path("serviceProviderId") String serviceProviderId);
 
-    @POST("/serviceprovider/")
-    ServiceProvider createServiceProvider(@Body CreateServiceProviderRequest body);
-
-    @POST("/serviceprovider/{serviceProviderId}")
+    @PUT("/serviceprovider/{serviceProviderId}")
     ServiceProvider updateServiceProvider(@Path("serviceProviderId") String serviceProviderId,
                                           @Body UpdateServiceProviderRequest request);
 
@@ -98,8 +71,8 @@ public interface SevaMeService {
     Response acceptJob(@Path("serviceProviderId") String serviceProviderId,
                        @Path("jobId") String jobId);
 
-    @POST("/serviceprovider/{serviceProviderId}/start_verification/")
-    Response initiateServiceProviderVerification(@Path("serviceProviderId") String serviceProviderId);
+    @POST("/serviceprovider/{serviceProviderId}/verify/")
+    Response requestOTP(@Path("serviceProviderId") String serviceProviderId, @Query("phone_number") String phoneNumber);
 
     @POST("/job/jobId/start")
     Response startJob(@Path("jobId") String jobId);
@@ -108,7 +81,7 @@ public interface SevaMeService {
     Response stopJob(@Path("jobId") String jobId);
 
     @POST("/serviceprovider/{serviceProviderId}/verify/")
-    VerifyServiceProviderResponse verifyServiceProvider(@Path("accountId") String accountId, @Body VerifyServiceProviderRequest request);
+    Response verifyServiceProvider(@Path("serviceProviderId") String serviceProviderId, @Query("otp") String otp);
 
     @POST("/serviceprovider/{serviceProviderId}/gcm")
     Response updateGcmRegistrationId(@Path("serviceProviderId") String serviceProviderId, @Body UpdateGcmRegistrationIdRequest registrationId);

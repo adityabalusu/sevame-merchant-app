@@ -10,6 +10,7 @@ import in.geekvalet.sevame.model.Service;
 import retrofit.client.Response;
 import retrofit.http.Body;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 /**
  * Created by gautam on 13/12/14.
@@ -23,11 +24,6 @@ public class MockSevaMeService implements SevaMeService {
 
     @Override
     public Response authTest(@Path("serviceProviderId") String serviceProviderId) {
-        return null;
-    }
-
-    @Override
-    public ServiceProvider createServiceProvider(@Body CreateServiceProviderRequest body) {
         return null;
     }
 
@@ -88,7 +84,7 @@ public class MockSevaMeService implements SevaMeService {
     }
 
     @Override
-    public Response initiateServiceProviderVerification(@Path("serviceProviderId") String serviceProviderId) {
+    public Response requestOTP(@Path("serviceProviderId") String serviceProviderId, @Query("phone_number") String phoneNumber) {
         return null;
     }
 
@@ -103,7 +99,7 @@ public class MockSevaMeService implements SevaMeService {
     }
 
     @Override
-    public VerifyServiceProviderResponse verifyServiceProvider(@Path("accountId") String accountId, @Body VerifyServiceProviderRequest request) {
+    public Response verifyServiceProvider(@Path("accountId") String accountId, @Query("otp") String otp) {
         return null;
     }
 

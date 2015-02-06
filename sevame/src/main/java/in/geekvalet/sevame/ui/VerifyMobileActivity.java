@@ -12,29 +12,32 @@ import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.view.View;
-import android.widget.*;
-
-import in.geekvalet.sevame.Application;
-import in.geekvalet.sevame.R;
-import in.geekvalet.sevame.model.ServiceProvider;
-import in.geekvalet.sevame.service.CreateServiceProvider;
-import in.geekvalet.sevame.service.VerifyServiceProvider;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SignupActivity extends ActionBarActivity {
+import in.geekvalet.sevame.Application;
+import in.geekvalet.sevame.R;
+import in.geekvalet.sevame.model.ServiceProvider;
+import in.geekvalet.sevame.service.SevaMeService;
+import retrofit.RetrofitError;
 
-    private static final String LOG_TAG = SignupActivity.class.getName();
-    private static final String sevame_OTP_REGEX = "Otp for registration with sevame";
+public class VerifyMobileActivity extends ActionBarActivity {
+    private static final String LOG_TAG = VerifyMobileActivity.class.getName();
+    private static final String SEVAME_OTP_REGEX = "OTP for registration with Sevame is";
     private Button signupButton;
     private TextView progressText;
     private EditText phoneNumber;
     private EditText name;
     private ProgressBar spinner;
     private String otp = null;
-    private ServiceProvider serviceProvider;
     private boolean verified = false;
     private SmsReceiver smsReceiver = null;
 
@@ -55,18 +58,16 @@ public class SignupActivity extends ActionBarActivity {
                         Log.d(LOG_TAG, "Message is from " + msgFrom + " and body is " + msgBody);
 
                         tryExtractOtp(msgBody);
-
                     }
                 }
             }
         }
-
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_verify_mobile);
 
         signupButton = (Button) findViewById(R.id.signup_button);
         progressText = (TextView) findViewById(R.id.progress_text);
@@ -74,8 +75,14 @@ public class SignupActivity extends ActionBarActivity {
         name = (EditText) findViewById(R.id.name);
         spinner = (ProgressBar) findViewById(R.id.progress_spinner);
 
-        name.setText(Application.getDataStore().getServiceProvider().getName());
+
+        ServiceProvider serviceProvider = Application.getDataStore().getServiceProvider();
+        name.setText(serviceProvider.getName());
         name.setEnabled(false);
+
+        if(phoneNumber.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +102,7 @@ public class SignupActivity extends ActionBarActivity {
         });
     }
 
-    private void verifyServiceProvider() {
+    private void verifyServiceProvider(final String otp) {
         if(!verified) {
             progressText.setText("Submitting otp for verification");
 
@@ -103,7 +110,16 @@ public class SignupActivity extends ActionBarActivity {
 
                 @Override
                 protected Boolean doInBackground(Object... params) {
-                    return new VerifyServiceProvider(serviceProvider, otp).invoke();
+                    ServiceProvider serviceProvider = Application.getDataStore().getServiceProvider();
+                    SevaMeService sevaMeService = Application.getSevaMeService();
+
+                    try {
+                        sevaMeService.verifyServiceProvider(serviceProvider.getId(), otp);
+                    } catch (RetrofitError retrofitError) {
+                        return false;
+                    }
+
+                    return true;
                 }
 
                 @Override
@@ -111,7 +127,11 @@ public class SignupActivity extends ActionBarActivity {
                     verified = successful;
 
                     if(verified) {
-                        Intent intent = new Intent(SignupActivity.this, SelectSkillSetActivity.class);
+                        ServiceProvider serviceProvider = Application.getDataStore().getServiceProvider();
+                        serviceProvider.markAsVerified();
+                        Application.getDataStore().saveServiceProvider(serviceProvider);
+
+                        Intent intent = new Intent(VerifyMobileActivity.this, SelectSkillSetActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
@@ -126,14 +146,21 @@ public class SignupActivity extends ActionBarActivity {
         new AsyncTask<Object, Object, Boolean>() {
             @Override
             protected Boolean doInBackground(Object... params) {
-                CreateServiceProvider createServiceProvider = new CreateServiceProvider();
-                createServiceProvider.setPhoneNumber(phoneNumber.getText().toString());
-                createServiceProvider.setName(name.getText().toString());
-                createServiceProvider.setInitiateVerification(true);
+                return updatePhoneNumber();
+            }
 
-                serviceProvider = createServiceProvider.invoke();
+            private Boolean updatePhoneNumber() {
+                ServiceProvider serviceProvider = Application.getDataStore().getServiceProvider();
+                String phoneNumber = VerifyMobileActivity.this.phoneNumber.getText().toString();
 
-                return serviceProvider != null;
+                try {
+                    Application.getSevaMeService().requestOTP(serviceProvider.getId(), phoneNumber);
+                } catch (RetrofitError error) {
+                    Log.e(LOG_TAG, "Failed to request otp");
+                    return false;
+                }
+
+                return true;
             }
 
             @Override
@@ -143,7 +170,7 @@ public class SignupActivity extends ActionBarActivity {
                 } else if(otp == null) {
                     progressText.setText("Waiting for SMS");
                 } else {
-                    verifyServiceProvider();
+                    verifyServiceProvider(otp);
                 }
             }
         }.execute();
@@ -209,27 +236,18 @@ public class SignupActivity extends ActionBarActivity {
     }
 
     private boolean validate() {
-        return !(validatePhoneNumber() || validateName());
+        return validatePhoneNumber();
     }
 
-    private boolean validateName() {
-        boolean validName = name.getText().toString().length() > 0;
-
-        if(!validName) {
-            name.setError("Name can't be empty");
-            return true;
-        }
-        return false;
-    }
 
     private boolean validatePhoneNumber() {
         boolean validPhoneNumber = android.util.Patterns.PHONE.matcher(phoneNumber.getText().toString()).matches();
 
         if(!validPhoneNumber) {
             phoneNumber.setError("Phone number is invalid");
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     public void fetchExistingOtp() {
@@ -263,17 +281,20 @@ public class SignupActivity extends ActionBarActivity {
     }
 
     private void tryExtractOtp(String msgBody) {
-        if(msgBody.toUpperCase().contains(sevame_OTP_REGEX.toUpperCase())) {
-            Pattern pattern = Pattern.compile("\\d{6}");
+        if(msgBody.toUpperCase().contains(SEVAME_OTP_REGEX.toUpperCase())) {
+            Pattern pattern = Pattern.compile("\\d+");
             Matcher matcher = pattern.matcher(msgBody);
 
             if(matcher.find()) {
                 otp = matcher.group(0);
+                ServiceProvider serviceProvider = Application.getDataStore().getServiceProvider();
 
                 if(serviceProvider != null) {
-                    verifyServiceProvider();
+                    verifyServiceProvider(otp);
                 }
             }
+        } else {
+            Log.w(LOG_TAG, "Failed to match sms body");
         }
     }
 }
