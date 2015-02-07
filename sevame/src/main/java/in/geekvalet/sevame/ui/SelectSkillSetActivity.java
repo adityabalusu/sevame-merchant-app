@@ -1,5 +1,6 @@
 package in.geekvalet.sevame.ui;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Map;
@@ -83,7 +85,11 @@ public class SelectSkillSetActivity extends ActionBarActivity {
                 @Override
                 protected void onPostExecute(ServiceProvider serviceProvider) {
                     if(serviceProvider != null) {
-                        Log.i(LOG_TAG, "Successfully updated service Types");
+                        Application.getDataStore().saveServiceProvider(serviceProvider);
+
+                        Intent intent = new Intent(SelectSkillSetActivity.this, JobsActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 }
             }.execute();
@@ -109,7 +115,8 @@ public class SelectSkillSetActivity extends ActionBarActivity {
             @Override
             protected void onPostExecute(List<Service> services) {
                 if(services != null) {
-                    listAdapter = new SelectSkillSetListAdapter(SelectSkillSetActivity.this, services);
+                    ServiceProvider serviceProvider = Application.getDataStore().getServiceProvider();
+                    listAdapter = new SelectSkillSetListAdapter(SelectSkillSetActivity.this, services, serviceProvider);
 
                     // setting list adapter
                     listView.setAdapter(listAdapter);

@@ -11,11 +11,14 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import in.geekvalet.sevame.R;
 import in.geekvalet.sevame.model.Service;
+import in.geekvalet.sevame.model.ServiceProvider;
 import in.geekvalet.sevame.model.Skill;
 
 /**
@@ -23,13 +26,15 @@ import in.geekvalet.sevame.model.Skill;
  */
 public class SelectSkillSetListAdapter extends BaseExpandableListAdapter {
     private final List<Service> services;
+    private final ServiceProvider serviceProvider;
     private Context context;
     private final HashMap<Service, ArrayList<CheckBox>> checkboxes;
 
-    public SelectSkillSetListAdapter(Context context, List<Service> services) {
+    public SelectSkillSetListAdapter(Context context, List<Service> services, ServiceProvider serviceProvider) {
         this.context = context;
         this.services = services;
         this.checkboxes = new HashMap<Service, ArrayList<CheckBox>>();
+        this.serviceProvider = serviceProvider;
     }
 
     public Map<String, List<Skill>> selectedSkills() {
@@ -67,6 +72,8 @@ public class SelectSkillSetListAdapter extends BaseExpandableListAdapter {
                              boolean isLastChild, View convertView, ViewGroup parent) {
 
         final String childText = (String) getChild(groupPosition, childPosition);
+        final String serviceName = this.services.get(groupPosition).getName();
+        final Set<String> existingSkills = fetchExistingSkills(serviceName);
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
@@ -76,9 +83,23 @@ public class SelectSkillSetListAdapter extends BaseExpandableListAdapter {
 
         CheckBox skillCheckbox = (CheckBox) convertView.findViewById(R.id.skill);
 
+        if(existingSkills.contains(childText)) {
+            skillCheckbox.setChecked(true);
+        }
+
         skillCheckbox.setText(childText);
         this.checkboxes.get(this.services.get(groupPosition)).add(skillCheckbox);
         return convertView;
+    }
+
+    private Set<String> fetchExistingSkills(String serviceName) {
+        Set<String> skills = new HashSet<String>();
+
+        for(Skill skill: this.serviceProvider.getSkills().get(serviceName)) {
+            skills.add(skill.getName());
+        }
+
+        return skills;
     }
 
     @Override

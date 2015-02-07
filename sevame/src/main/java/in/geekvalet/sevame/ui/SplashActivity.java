@@ -67,6 +67,10 @@ public class SplashActivity extends FragmentActivity {
                     Intent intent = new Intent(SplashActivity.this, VerifyMobileActivity.class);
                     startActivity(intent);
                     finish();
+                } else if(serviceProvider.getSkills() == null || serviceProvider.getSkills().isEmpty()) {
+                    Intent intent = new Intent(SplashActivity.this, SelectSkillSetActivity.class);
+                    startActivity(intent);
+                    finish();
                 } else {
                     Intent intent = new Intent(SplashActivity.this, JobsActivity.class);
                     startActivity(intent);
