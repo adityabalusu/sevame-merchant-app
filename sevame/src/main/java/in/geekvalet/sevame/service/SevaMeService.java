@@ -86,9 +86,9 @@ public interface SevaMeService {
     @POST("/serviceprovider/{serviceProviderId}/gcm")
     Response updateGcmRegistrationId(@Path("serviceProviderId") String serviceProviderId, @Body UpdateGcmRegistrationIdRequest registrationId);
 
-    @POST("/serviceprovider/{serviceProviderId}/job?status=pending,started")
+    @GET("/serviceprovider/{serviceProviderId}/job?status=accepted,started")
     ListResponse<Job> fetchAssignedJobs(@Path("serviceProviderId") String serviceProviderId);
 
-    @POST("/serviceprovider/{serviceProviderId}/job?status=open")
+    @GET("/serviceprovider/{serviceProviderId}/job?status=assigned")
     ListResponse<Job> fetchOpenJobs(@Path("serviceProviderId") String serviceProviderId);
 }
