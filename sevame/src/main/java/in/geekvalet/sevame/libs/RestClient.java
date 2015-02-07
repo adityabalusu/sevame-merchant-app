@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import in.geekvalet.sevame.service.Util;
+
 
 public class RestClient {
 
@@ -163,7 +165,7 @@ public class RestClient {
         try {
             HttpResponse response = httpClient.execute(request);
 
-            if(isSuccessful(response)) {
+            if(Util.isSuccessful(response)) {
                 return EntityUtils.toString(response.getEntity());
             } else {
                 throw new UnsuccessfulRestCall(request, response);
@@ -175,12 +177,6 @@ public class RestClient {
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
-    }
-
-    private static boolean isSuccessful(HttpResponse response) {
-        int code = response.getStatusLine().getStatusCode();
-
-        return code >= 200 && code < 300;
     }
 
     private static HttpEntity asStringEntity(String body) {

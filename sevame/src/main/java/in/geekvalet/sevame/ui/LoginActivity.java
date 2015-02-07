@@ -34,6 +34,7 @@ import in.geekvalet.sevame.DataStore;
 import in.geekvalet.sevame.R;
 import in.geekvalet.sevame.model.ServiceProvider;
 import in.geekvalet.sevame.service.SevaMeService;
+import in.geekvalet.sevame.service.Util;
 import retrofit.client.Response;
 import retrofit.client.Header;
 
@@ -111,7 +112,7 @@ public class LoginActivity extends FragmentActivity {
             removeSessionId();
             Response response = Application.getSevaMeService().login(new SevaMeService.LoginRequest(token));
 
-            if(isSuccessful(response)) {
+            if(Util.isSuccessful(response)) {
                 saveSessionId(response);
                 saveServiceProvider(response);
                 onLoginSuccessful();
@@ -161,10 +162,6 @@ public class LoginActivity extends FragmentActivity {
                     }
                 }
             }
-        }
-
-        private boolean isSuccessful(Response response) {
-            return response.getStatus() >= 200 && response.getStatus() < 300;
         }
 
         private void saveAuthToken(String token) {

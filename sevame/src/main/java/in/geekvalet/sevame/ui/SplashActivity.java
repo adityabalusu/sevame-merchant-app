@@ -9,6 +9,7 @@ import in.geekvalet.sevame.Application;
 import in.geekvalet.sevame.DataStore;
 import in.geekvalet.sevame.model.ServiceProvider;
 import in.geekvalet.sevame.service.GcmRefreshService;
+import in.geekvalet.sevame.service.Util;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
@@ -54,15 +55,11 @@ public class SplashActivity extends FragmentActivity {
                 }
             }
 
-            private boolean isRedirect(Response response) {
-                return response.getStatus() >= 300 && response.getStatus() < 400;
-            }
-
             @Override
             protected void onPostExecute(Response response) {
                 ServiceProvider serviceProvider = Application.getDataStore().getServiceProvider();
 
-                if(response == null || isRedirect(response) || response.getStatus() == 403 || serviceProvider == null) {
+                if(response == null || Util.isRedirect(response) || response.getStatus() == 403 || serviceProvider == null) {
                     Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
