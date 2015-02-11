@@ -1,6 +1,6 @@
 package in.geekvalet.sevame;
 
-import in.geekvalet.sevame.model.Customer;
+import in.geekvalet.sevame.model.User;
 import in.geekvalet.sevame.model.Job;
 import in.geekvalet.sevame.model.Location;
 import in.geekvalet.sevame.model.ServiceProvider;
@@ -13,10 +13,10 @@ public class Fixtures {
     public Job getJob1() {
         Job job = new Job();
 
-        job.setDescription("Flush Repair");
-        job.setDate("20-05-2014 5:30 PM");
+        job.setRequest("Flush Repair");
+        job.setAppointmentTime("20-05-2014 5:30 PM");
         job.setAddress("186, 2nd C Main, Koramangala 8th Block, Near Corporation Bank");
-        job.setCustomer(new Customer("Gautam BT", "9620917775"));
+        job.setUser(new User("Gautam BT", "9620917775"));
         job.setLocation(new Location(12.935340, 77.623930));
 
         return job;
@@ -25,10 +25,10 @@ public class Fixtures {
     public Job getJob2() {
         Job job = new Job();
 
-        job.setDescription("Commode installation");
+        job.setRequest("Commode installation");
         job.setAddress("186, 2nd C Main, Koramangala 8th Block, Near Corporation Bank");
-        job.setDate("20-05-2014 5:30 PM");
-        job.setCustomer(new Customer("Gautam BT", "9620917775"));
+        job.setAppointmentTime("20-05-2014 5:30 PM");
+        job.setUser(new User("Gautam BT", "9620917775"));
         job.setLocation(new Location(12.935340, 77.623930));
 
         return job;
@@ -37,10 +37,10 @@ public class Fixtures {
     public Job getJob3() {
         Job job = new Job();
 
-        job.setDescription("Kitchen sink repair");
-        job.setDate("20-05-2014 5:30 PM");
+        job.setRequest("Kitchen sink repair");
+        job.setAppointmentTime("20-05-2014 5:30 PM");
         job.setAddress("186, 2nd C Main, Koramangala 8th Block, Near Corporation Bank");
-        job.setCustomer(new Customer("Gautam BT", "9620917775"));
+        job.setUser(new User("Gautam BT", "9620917775"));
         job.setLocation(new Location(12.935340, 77.623930));
 
         return job;
@@ -49,10 +49,10 @@ public class Fixtures {
     public Job getJob4() {
         Job job = new Job();
 
-        job.setDescription("Piping");
-        job.setDate("20-05-2014 5:30 PM");
+        job.setRequest("Piping");
+        job.setAppointmentTime("20-05-2014 5:30 PM");
         job.setAddress("186, 2nd C Main, Koramangala 8th Block, Near Corporation Bank");
-        job.setCustomer(new Customer("Gautam BT", "9620917775"));
+        job.setUser(new User("Gautam BT", "9620917775"));
         job.setLocation(new Location(12.935340, 77.623930));
 
         return job;
@@ -60,10 +60,10 @@ public class Fixtures {
 
     public Job getJob5() {
         Job job = new Job();
-        job.setDescription("Tap Repair");
-        job.setDate("20-05-2014 5:30 PM");
+        job.setRequest("Tap Repair");
+        job.setAppointmentTime("20-05-2014 5:30 PM");
         job.setAddress("186, 2nd C Main, Koramangala 8th Block, Near Corporation Bank");
-        job.setCustomer(new Customer("Gautam BT", "9620917775"));
+        job.setUser(new User("Gautam BT", "9620917775"));
         job.setLocation(new Location(12.935340, 77.623930));
 
         return job;

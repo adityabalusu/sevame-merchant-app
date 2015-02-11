@@ -74,12 +74,12 @@ public class MockSevaMeService implements SevaMeService {
     }
 
     @Override
-    public Response rejectJob(@Path("serviceProviderId") String serviceProviderId, @Path("jobId") String jobId) {
+    public Response rejectJob(@Path("jobId") String jobId) {
         return null;
     }
 
     @Override
-    public Response acceptJob(@Path("serviceProviderId") String serviceProviderId, @Path("jobId") String jobId) {
+    public Response acceptJob(@Path("jobId") String jobId) {
         return null;
     }
 

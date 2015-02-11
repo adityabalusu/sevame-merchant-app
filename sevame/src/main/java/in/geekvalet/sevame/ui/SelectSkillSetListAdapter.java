@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import in.geekvalet.sevame.Application;
 import in.geekvalet.sevame.R;
 import in.geekvalet.sevame.model.Service;
 import in.geekvalet.sevame.model.ServiceProvider;
@@ -94,9 +95,12 @@ public class SelectSkillSetListAdapter extends BaseExpandableListAdapter {
 
     private Set<String> fetchExistingSkills(String serviceName) {
         Set<String> skills = new HashSet<String>();
+        ServiceProvider serviceProvider = Application.getDataStore().getServiceProvider();
 
-        for(Skill skill: this.serviceProvider.getSkills().get(serviceName)) {
-            skills.add(skill.getName());
+        if(serviceProvider.getSkills() != null) {
+            for (Skill skill : serviceProvider.getSkills().get(serviceName)) {
+                skills.add(skill.getName());
+            }
         }
 
         return skills;

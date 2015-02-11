@@ -5,11 +5,11 @@ import java.io.Serializable;
 /**
  * Created by gautam on 13/12/14.
  */
-public class Customer implements Serializable {
+public class User implements Serializable {
     private String name;
     private String phoneNumber;
 
-    public Customer(String name, String phoneNumber) {
+    public User(String name, String phoneNumber) {
         this.name = name;
         this.phoneNumber = phoneNumber;
     }

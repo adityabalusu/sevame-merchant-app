@@ -1,32 +1,39 @@
 package in.geekvalet.sevame.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import in.geekvalet.sevame.Application;
 
 /**
  * Created by gautam on 25/5/14.
  */
 public class Job implements Serializable {
     private String id;
-    private String description;
-    private String date;
+    private String request;
+    private String appointmentTime;
     private String address;
-    private Location location;
-    private Customer customer;
+    private Double[] location;
+    private User user;
+    private String status;
 
-    public String getDescription() {
-        return description;
+    public String getRequest() {
+        return request;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRequest(String request) {
+        this.request = request;
     }
 
-    public String getDate() {
-        return date;
+    public String getAppointmentTime() {
+        return appointmentTime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setAppointmentTime(String appointmentTime) {
+        this.appointmentTime = appointmentTime;
     }
 
     public String getAddress() {
@@ -38,19 +45,19 @@ public class Job implements Serializable {
     }
 
     public Location getLocation() {
-        return location;
+        return new Location(location[0], location[1]);
     }
 
     public void setLocation(Location location) {
-        this.location = location;
+        this.location = new Double[]{location.getLatitude(), location.getLongitude()};
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public User getUser() {
+        return user;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getId() {
@@ -59,5 +66,13 @@ public class Job implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public boolean isStarted() {
+        return status != null && status.equals("started");
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

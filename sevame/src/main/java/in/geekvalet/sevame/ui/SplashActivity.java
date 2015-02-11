@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import in.geekvalet.sevame.Application;
 import in.geekvalet.sevame.DataStore;
+import in.geekvalet.sevame.R;
 import in.geekvalet.sevame.model.ServiceProvider;
 import in.geekvalet.sevame.service.GcmRefreshService;
 import in.geekvalet.sevame.service.Util;
@@ -20,6 +21,7 @@ public class SplashActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.splash_activity);
         selectActivity();
 
         new GcmRefreshService(this).invoke();

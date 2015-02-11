@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public interface SevaMeService {
 
-    public static String BASE_URL = "http://accurox.com/api";
+    public static String BASE_URL = "https://sevame.in/api";
 
     public static class LoginRequest {
         public String accessToken;
@@ -63,22 +63,20 @@ public interface SevaMeService {
     @GET("/service")
     ListResponse<Service> fetchServiceTypes();
 
-    @PUT("/serviceprovider/{serviceProviderId}/job/{jobId}/reject")
-    Response rejectJob(@Path("serviceProviderId") String serviceProviderId,
-                       @Path("jobId") String jobId);
+    @PUT("/job/{jobId}/reject")
+    Response rejectJob(@Path("jobId") String jobId);
 
-    @PUT("/serviceprovider/{serviceProviderId}/job/{jobId}/accept")
-    Response acceptJob(@Path("serviceProviderId") String serviceProviderId,
-                       @Path("jobId") String jobId);
+    @PUT("/job/{jobId}/accept")
+    Response acceptJob(@Path("jobId") String jobId);
+
+    @POST("/job/{jobId}/start")
+    Response startJob(@Path("jobId") String jobId);
+
+    @POST("/job/{jobId}/end")
+    Response stopJob(@Path("jobId") String jobId);
 
     @POST("/serviceprovider/{serviceProviderId}/verify/")
     Response requestOTP(@Path("serviceProviderId") String serviceProviderId, @Query("phone_number") String phoneNumber);
-
-    @POST("/job/jobId/start")
-    Response startJob(@Path("jobId") String jobId);
-
-    @POST("/job/jobId/stop")
-    Response stopJob(@Path("jobId") String jobId);
 
     @POST("/serviceprovider/{serviceProviderId}/verify/")
     Response verifyServiceProvider(@Path("serviceProviderId") String serviceProviderId, @Query("otp") String otp);

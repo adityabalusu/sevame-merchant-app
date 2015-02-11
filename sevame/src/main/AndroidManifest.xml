@@ -35,8 +35,12 @@
         <activity
                     android:name=".ui.SplashActivity"
                     android:label="@string/app_name"
-                    android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+                    android:theme="@style/NoTitleBarTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
@@ -56,11 +60,6 @@
         <activity
             android:name=".ui.SelectSkillSetActivity"
             android:label="@string/title_activity_conversation" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity

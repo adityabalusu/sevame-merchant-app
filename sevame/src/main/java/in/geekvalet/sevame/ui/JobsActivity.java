@@ -1,8 +1,6 @@
 package in.geekvalet.sevame.ui;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -10,8 +8,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import in.geekvalet.sevame.Application;
@@ -37,23 +42,19 @@ public class JobsActivity extends ActionBarActivity {
     private ViewPager viewPager;
 
     class TabListener implements ActionBar.TabListener {
-
         @Override
         public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
             viewPager.setCurrentItem(tab.getPosition());
-
+            viewPager.getAdapter().notifyDataSetChanged();
         }
 
         @Override
         public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-
         }
 
         @Override
         public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-
         }
-
     }
     class PagerAdapter extends FragmentPagerAdapter {
 
@@ -62,11 +63,21 @@ public class JobsActivity extends ActionBarActivity {
         }
         @Override
         public Fragment getItem(int i) {
+            Fragment fragment;
+
             if(i == 0) {
-                return new PendingJobsFragment();
+                fragment = new PendingJobsFragment();
             } else {
-                return new OpenJobsFragment();
+                fragment = new OpenJobsFragment();
             }
+            return fragment;
+
+        }
+
+        //https://stackoverflow.com/questions/18088076/update-fragment-from-viewpager
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
         }
 
         @Override
@@ -100,8 +111,7 @@ public class JobsActivity extends ActionBarActivity {
                 protected List<Job> doInBackground(Object... params) {
                     String serviceProviderId = Application.getDataStore().getServiceProvider().getId();
 
-                    List<Job> jobs = Application.getSevaMeService().fetchAssignedJobs(serviceProviderId).objects;
-                    return jobs;
+                    return Application.getSevaMeService().fetchAssignedJobs(serviceProviderId).objects;
                 }
 
                 @Override
@@ -119,7 +129,7 @@ public class JobsActivity extends ActionBarActivity {
         }
 
         private void addJob(LayoutInflater inflater, final Job job) {
-            View view = inflater.inflate(R.layout.fragment_pending_job, jobsLayout, false);
+            final View view = inflater.inflate(R.layout.fragment_pending_job, jobsLayout, false);
 
             TextView description = (TextView) view.findViewById(R.id.description);
             TextView date = (TextView) view.findViewById(R.id.date);
@@ -127,11 +137,13 @@ public class JobsActivity extends ActionBarActivity {
             TextView name = (TextView) view.findViewById(R.id.name);
             TextView phoneNumber = (TextView) view.findViewById(R.id.phone_number);
 
-            description.setText(job.getDescription());
-            date.setText(job.getDate());
+            description.setText(job.getRequest());
+            String appointmentTime = formatDate(job.getAppointmentTime());
+
+            date.setText(appointmentTime);
             address.setText(job.getAddress());
-            name.setText(job.getCustomer().getName());
-            phoneNumber.setText("(" + job.getCustomer().getPhoneNumber() + ")");
+            name.setText(job.getUser().getName());
+            phoneNumber.setText("(" + job.getUser().getPhoneNumber() + ")");
 
             final Button startButton = (Button) view.findViewById(R.id.start_button);
             final Button stopButton = (Button) view.findViewById(R.id.stop_button);
@@ -145,12 +157,16 @@ public class JobsActivity extends ActionBarActivity {
 
             stopButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(View buttonView) {
                     stopJob(job, view);
                 }
             });
-            stopButton.setEnabled(false);
 
+            if(job.isStarted()) {
+                startButton.setEnabled(false);
+            } else {
+                stopButton.setEnabled(false);
+            }
 
             if(job.getLocation() != null) {
                 LatLng location = job.getLocation().asLatLng();
@@ -225,8 +241,7 @@ public class JobsActivity extends ActionBarActivity {
                 protected List<Job> doInBackground(Object... params) {
                     String serviceProviderId = Application.getDataStore().getServiceProvider().getId();
 
-                    List<Job> jobs = Application.getSevaMeService().fetchOpenJobs(serviceProviderId).objects;
-                    return jobs;
+                    return Application.getSevaMeService().fetchOpenJobs(serviceProviderId).objects;
                 }
 
                 @Override
@@ -244,7 +259,7 @@ public class JobsActivity extends ActionBarActivity {
         }
 
         private void addJob(LayoutInflater inflater, final Job job) {
-            View view = inflater.inflate(R.layout.fragment_open_job, jobsLayout, false);
+            final View view = inflater.inflate(R.layout.fragment_open_job, jobsLayout, false);
 
             TextView description = (TextView) view.findViewById(R.id.description);
             TextView date = (TextView) view.findViewById(R.id.date);
@@ -252,25 +267,27 @@ public class JobsActivity extends ActionBarActivity {
             TextView name = (TextView) view.findViewById(R.id.name);
             TextView phoneNumber = (TextView) view.findViewById(R.id.phone_number);
 
-            description.setText(job.getDescription());
-            date.setText(job.getDate());
+            String appointmentTime = formatDate(job.getAppointmentTime());
+
+            date.setText(appointmentTime);
+            description.setText(job.getRequest());
             address.setText(job.getAddress());
-            name.setText(job.getCustomer().getName());
-            phoneNumber.setText("(" + job.getCustomer().getPhoneNumber() + ")");
+            name.setText(job.getUser().getName());
+            phoneNumber.setText("(" + job.getUser().getPhoneNumber() + ")");
 
             Button acceptButton = (Button) view.findViewById(R.id.accept_button);
             Button rejectButton = (Button) view.findViewById(R.id.reject_button);
 
             acceptButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(View buttonView) {
                     acceptJob(job, view);
                 }
             });
 
             rejectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(View buttonView) {
                     rejectJob(job, view);
                 }
             });
@@ -288,8 +305,7 @@ public class JobsActivity extends ActionBarActivity {
             new AsyncTask<Object, Object, Boolean>() {
                 @Override
                 protected Boolean doInBackground(Object... params) {
-                    String serviceProviderId = Application.getDataStore().getServiceProvider().getId();
-                    Response response = Application.getSevaMeService().rejectJob(serviceProviderId, job.getId());
+                    Response response = Application.getSevaMeService().rejectJob(job.getId());
                     return Util.isSuccessful(response);
                 }
 
@@ -309,8 +325,7 @@ public class JobsActivity extends ActionBarActivity {
             new AsyncTask<Object, Object, Boolean>() {
                 @Override
                 protected Boolean doInBackground(Object... params) {
-                    String serviceProviderId = Application.getDataStore().getServiceProvider().getId();
-                    Response response = Application.getSevaMeService().acceptJob(serviceProviderId, job.getId());
+                    Response response = Application.getSevaMeService().acceptJob(job.getId());
                     return Util.isSuccessful(response);
                 }
 
@@ -327,6 +342,18 @@ public class JobsActivity extends ActionBarActivity {
         }
     }
 
+    private static String formatDate(String dateString) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+        try {
+            Date date = simpleDateFormat.parse(dateString);
+            int format = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_WEEKDAY;
+            return android.text.format.DateUtils.formatDateTime(Application.getContext(), date.getTime(), format);
+        } catch (ParseException e) {
+            return dateString;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -336,7 +363,7 @@ public class JobsActivity extends ActionBarActivity {
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
 
-        final ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         ActionBar.TabListener tabListener = new TabListener();
