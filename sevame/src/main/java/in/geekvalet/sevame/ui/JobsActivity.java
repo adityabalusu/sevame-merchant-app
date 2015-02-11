@@ -35,6 +35,7 @@ import in.geekvalet.sevame.R;
 import in.geekvalet.sevame.libs.GoogleMapsClient;
 import in.geekvalet.sevame.model.Job;
 import in.geekvalet.sevame.service.Util;
+import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class JobsActivity extends ActionBarActivity {
@@ -182,7 +183,12 @@ public class JobsActivity extends ActionBarActivity {
                 @Override
                 protected Boolean doInBackground(Object... params) {
                     Response response = Application.getSevaMeService().startJob(job.getId());
-                    return Util.isSuccessful(response);
+
+                    try {
+                        return Util.isSuccessful(response);
+                    } catch(RetrofitError error) {
+                        return false;
+                    }
                 }
 
                 @Override
@@ -203,7 +209,11 @@ public class JobsActivity extends ActionBarActivity {
                 @Override
                 protected Boolean doInBackground(Object... params) {
                     Response response = Application.getSevaMeService().stopJob(job.getId());
-                    return Util.isSuccessful(response);
+                    try {
+                        return Util.isSuccessful(response);
+                    } catch (RetrofitError e) {
+                        return  false;
+                    }
                 }
 
                 @Override
@@ -306,7 +316,12 @@ public class JobsActivity extends ActionBarActivity {
                 @Override
                 protected Boolean doInBackground(Object... params) {
                     Response response = Application.getSevaMeService().rejectJob(job.getId());
-                    return Util.isSuccessful(response);
+
+                    try {
+                        return Util.isSuccessful(response);
+                    } catch (RetrofitError e) {
+                        return false;
+                    }
                 }
 
                 @Override
@@ -326,7 +341,12 @@ public class JobsActivity extends ActionBarActivity {
                 @Override
                 protected Boolean doInBackground(Object... params) {
                     Response response = Application.getSevaMeService().acceptJob(job.getId());
-                    return Util.isSuccessful(response);
+
+                    try {
+                        return Util.isSuccessful(response);
+                    } catch (RetrofitError e) {
+                        return false;
+                    }
                 }
 
                 @Override

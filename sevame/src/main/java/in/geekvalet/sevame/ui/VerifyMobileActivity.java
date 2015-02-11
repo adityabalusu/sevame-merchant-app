@@ -40,6 +40,7 @@ public class VerifyMobileActivity extends ActionBarActivity {
     private String otp = null;
     private boolean verified = false;
     private SmsReceiver smsReceiver = null;
+    private boolean otpRequested = false;
 
     public class SmsReceiver extends BroadcastReceiver {
         @Override
@@ -97,12 +98,12 @@ public class VerifyMobileActivity extends ActionBarActivity {
                 progressText.setVisibility(View.VISIBLE);
                 spinner.setVisibility(View.VISIBLE);
 
-                signup();
+                requestOTP();
             }
         });
     }
 
-    private void verifyServiceProvider(final String otp) {
+    private void submitOTP(final String otp) {
         if(!verified) {
             progressText.setText("Submitting otp for verification");
 
@@ -142,19 +143,15 @@ public class VerifyMobileActivity extends ActionBarActivity {
         }
     }
 
-    private void signup() {
+    private void requestOTP() {
         new AsyncTask<Object, Object, Boolean>() {
             @Override
             protected Boolean doInBackground(Object... params) {
-                return updatePhoneNumber();
-            }
-
-            private Boolean updatePhoneNumber() {
                 ServiceProvider serviceProvider = Application.getDataStore().getServiceProvider();
-                String phoneNumber = VerifyMobileActivity.this.phoneNumber.getText().toString();
+                String phoneNumber1 = VerifyMobileActivity.this.phoneNumber.getText().toString();
 
                 try {
-                    Application.getSevaMeService().requestOTP(serviceProvider.getId(), phoneNumber);
+                    Application.getSevaMeService().requestOTP(serviceProvider.getId(), phoneNumber1);
                 } catch (RetrofitError error) {
                     Log.e(LOG_TAG, "Failed to request otp");
                     return false;
@@ -168,9 +165,10 @@ public class VerifyMobileActivity extends ActionBarActivity {
                 if(!successful) {
                     fail();
                 } else if(otp == null) {
+                    otpRequested = true;
                     progressText.setText("Waiting for SMS");
                 } else {
-                    verifyServiceProvider(otp);
+                    submitOTP(otp);
                 }
             }
         }.execute();
@@ -178,7 +176,7 @@ public class VerifyMobileActivity extends ActionBarActivity {
     }
 
     private void fail() {
-        Toast.makeText(getApplicationContext(), "Signup failed. Please try again",
+        Toast.makeText(getApplicationContext(), "Mobile verification failed. Please try again",
                 Toast.LENGTH_LONG).show();
         resetForm();
     }
@@ -193,7 +191,10 @@ public class VerifyMobileActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
         registerSMSReceiver();
-        fetchExistingOtp();
+
+        if(otpRequested) {
+            fetchExistingOtp();
+        }
     }
 
     private void registerSMSReceiver() {
@@ -290,7 +291,7 @@ public class VerifyMobileActivity extends ActionBarActivity {
                 ServiceProvider serviceProvider = Application.getDataStore().getServiceProvider();
 
                 if(serviceProvider != null) {
-                    verifyServiceProvider(otp);
+                    submitOTP(otp);
                 }
             }
         } else {
