@@ -90,7 +90,7 @@ public class MockSevaMeService implements SevaMeService {
     }
 
     @Override
-    public Response stopJob(@Path("jobId") String jobId) {
+    public Response stopJob(@Path("jobId") String jobId, @Body StopJobRequest request) {
         return null;
     }
 

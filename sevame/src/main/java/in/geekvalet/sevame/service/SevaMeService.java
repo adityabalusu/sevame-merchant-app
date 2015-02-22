@@ -50,6 +50,14 @@ public interface SevaMeService {
         }
     }
 
+    public static class StopJobRequest {
+        public float rating;
+
+        public StopJobRequest(float rating) {
+            this.rating = rating;
+        }
+    }
+
     @POST("/serviceprovider/auth/google/")
     Response login(@Body LoginRequest loginRequest);
 
@@ -73,7 +81,7 @@ public interface SevaMeService {
     Response startJob(@Path("jobId") String jobId);
 
     @POST("/job/{jobId}/end")
-    Response stopJob(@Path("jobId") String jobId);
+    Response stopJob(@Path("jobId") String jobId, @Body StopJobRequest request);
 
     @POST("/serviceprovider/{serviceProviderId}/verify/")
     Response requestOTP(@Path("serviceProviderId") String serviceProviderId, @Query("phone_number") String phoneNumber, @Query("name") String name);

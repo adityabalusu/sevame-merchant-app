@@ -1,14 +1,19 @@
 package in.geekvalet.sevame.ui;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
@@ -16,12 +21,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +44,7 @@ import in.geekvalet.sevame.Application;
 import in.geekvalet.sevame.R;
 import in.geekvalet.sevame.libs.GoogleMapsClient;
 import in.geekvalet.sevame.model.Job;
+import in.geekvalet.sevame.service.SevaMeService;
 import in.geekvalet.sevame.service.Util;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -105,7 +113,6 @@ public class JobsActivity extends ActionBarActivity {
             jobsLayout = (LinearLayout) rootView.findViewById(R.id.pending_jobs_list);
 
             fetchAssignedJobs(inflater);
-
             return rootView;
         }
 
@@ -162,7 +169,7 @@ public class JobsActivity extends ActionBarActivity {
             stopButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View buttonView) {
-                    stopJob(job, view);
+                    showRatingsDialog(getActivity(), job);
                 }
             });
 
@@ -178,10 +185,51 @@ public class JobsActivity extends ActionBarActivity {
                 fetchAndSetLocationBitmap(location, imageView, getActivity());
             }
 
+            view.setTag("job_" + job.getId());
+
             jobsLayout.addView(view);
         }
 
-        private void startJob(final Job job, final Button startButton, final Button stopButton) {
+        private void showRatingsDialog(FragmentActivity activity, final Job job) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            View view = inflater.inflate(R.layout.dialog_ratings, null);
+
+            final RatingBar bar = (RatingBar) view.findViewById(R.id.rating_bar);
+            bar.setNumStars(5);
+            bar.setStepSize(1);
+
+            builder.setCancelable(false);
+            builder.setTitle("Please rate the customer");
+            builder.setNeutralButton("Rate", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    stopJob(job, bar.getRating());
+                }
+            });
+
+            builder.setView(view);
+
+            final AlertDialog dialog = builder.create();
+
+            bar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                @Override
+                public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                    dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setEnabled(true);
+                }
+            });
+
+            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialogInterface) {
+                    dialog.getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(false);
+                }
+            });
+            dialog.show();
+        }
+
+        protected void startJob(final Job job, final Button startButton, final Button stopButton) {
             new AsyncTask<Object, Object, Boolean>() {
                 @Override
                 protected Boolean doInBackground(Object... params) {
@@ -207,11 +255,11 @@ public class JobsActivity extends ActionBarActivity {
             }.execute();
         }
 
-        private void stopJob(final Job job, final View view) {
+        protected void stopJob(final Job job, final float rating) {
             new AsyncTask<Object, Object, Boolean>() {
                 @Override
                 protected Boolean doInBackground(Object... params) {
-                    Response response = Application.getSevaMeService().stopJob(job.getId());
+                    Response response = Application.getSevaMeService().stopJob(job.getId(), new SevaMeService.StopJobRequest(rating));
                     try {
                         return Util.isSuccessful(response);
                     } catch (RetrofitError e) {
@@ -222,6 +270,7 @@ public class JobsActivity extends ActionBarActivity {
                 @Override
                 protected void onPostExecute(Boolean successful) {
                     if(successful) {
+                        View view = jobsLayout.findViewWithTag("job_" + job.getId());
                         view.setVisibility(View.GONE);
                     } else {
                         Toast.makeText(getActivity().getApplicationContext(), "Job stop failed. Please try again",
