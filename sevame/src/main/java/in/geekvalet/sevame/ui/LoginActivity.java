@@ -35,6 +35,7 @@ import in.geekvalet.sevame.R;
 import in.geekvalet.sevame.model.ServiceProvider;
 import in.geekvalet.sevame.service.SevaMeService;
 import in.geekvalet.sevame.service.Util;
+import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.client.Header;
 
@@ -110,13 +111,16 @@ public class LoginActivity extends FragmentActivity {
             String token = fetchToken();
 
             removeSessionId();
-            Response response = Application.getSevaMeService().login(new SevaMeService.LoginRequest(token));
 
-            if(Util.isSuccessful(response)) {
-                saveSessionId(response);
-                saveServiceProvider(response);
-                onLoginSuccessful();
-            } else {
+            Response response;
+            try {
+                if(token != null) {
+                    response = Application.getSevaMeService().login(new SevaMeService.LoginRequest(token));
+                    saveSessionId(response);
+                    saveServiceProvider(response);
+                    onLoginSuccessful();
+                }
+            } catch (RetrofitError error) {
                 onLoginFail();
             }
         }
@@ -240,7 +244,7 @@ public class LoginActivity extends FragmentActivity {
     }
 
     private void login() {
-        if (mEmail == null) {
+        if (mEmail == null || mEmail.isEmpty()) {
             pickUserAccount();
         } else {
             if (isDeviceOnline()) {

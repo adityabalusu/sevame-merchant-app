@@ -16,36 +16,12 @@
         android:textSize="20sp" />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="3dp"
-        android:text="Gautam BT"
-        android:id="@+id/name"
-        android:layout_marginLeft="5dp"
-        android:layout_below="@+id/description"
-        android:layout_alignParentLeft="true"/>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="3dp"
-        android:text="(9620917775)"
-        android:autoLink = "phone"
-        android:id="@+id/phone_number"
-        android:layout_marginLeft="5dp"
-        android:layout_below="@id/description"
-        android:layout_toRightOf="@+id/name"/>
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_below="@+id/name"
+        android:layout_below="@+id/description"
         android:id="@+id/address_container"
         android:layout_alignParentLeft="true">
 
@@ -63,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="3dp"
-            android:text="186, 2nd C Main, Koramangala 8th Block, Near Corporation Bank"
+            android:text=""
             android:id="@+id/address" />
     </LinearLayout>
 

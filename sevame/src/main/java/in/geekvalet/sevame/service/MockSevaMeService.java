@@ -83,10 +83,6 @@ public class MockSevaMeService implements SevaMeService {
         return null;
     }
 
-    @Override
-    public Response requestOTP(@Path("serviceProviderId") String serviceProviderId, @Query("phone_number") String phoneNumber) {
-        return null;
-    }
 
     @Override
     public Response startJob(@Path("jobId") String jobId) {
@@ -95,6 +91,11 @@ public class MockSevaMeService implements SevaMeService {
 
     @Override
     public Response stopJob(@Path("jobId") String jobId) {
+        return null;
+    }
+
+    @Override
+    public Response requestOTP(@Path("serviceProviderId") String serviceProviderId, @Query("phone_number") String phoneNumber, @Query("name") String name) {
         return null;
     }
 

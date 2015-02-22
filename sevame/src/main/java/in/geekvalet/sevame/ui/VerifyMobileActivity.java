@@ -78,11 +78,15 @@ public class VerifyMobileActivity extends ActionBarActivity {
 
 
         ServiceProvider serviceProvider = Application.getDataStore().getServiceProvider();
-        name.setText(serviceProvider.getName());
-        name.setEnabled(false);
 
-        if(phoneNumber.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        if(serviceProvider.getName() != null && !serviceProvider.getName().isEmpty()) {
+            name.setText(serviceProvider.getName());
+            name.setEnabled(false);
+
+
+            if(phoneNumber.requestFocus()) {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            }
         }
 
         signupButton.setOnClickListener(new View.OnClickListener() {
@@ -149,9 +153,10 @@ public class VerifyMobileActivity extends ActionBarActivity {
             protected Boolean doInBackground(Object... params) {
                 ServiceProvider serviceProvider = Application.getDataStore().getServiceProvider();
                 String phoneNumber1 = VerifyMobileActivity.this.phoneNumber.getText().toString();
+                String name1 = VerifyMobileActivity.this.name.getText().toString();
 
                 try {
-                    Application.getSevaMeService().requestOTP(serviceProvider.getId(), phoneNumber1);
+                    Application.getSevaMeService().requestOTP(serviceProvider.getId(), phoneNumber1, name1);
                 } catch (RetrofitError error) {
                     Log.e(LOG_TAG, "Failed to request otp");
                     return false;

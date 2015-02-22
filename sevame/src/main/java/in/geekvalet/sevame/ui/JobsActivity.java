@@ -1,8 +1,11 @@
 package in.geekvalet.sevame.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,7 +16,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -67,9 +70,9 @@ public class JobsActivity extends ActionBarActivity {
             Fragment fragment;
 
             if(i == 0) {
-                fragment = new PendingJobsFragment();
+                fragment = new MyOrdersFragment();
             } else {
-                fragment = new OpenJobsFragment();
+                fragment = new OpenBidsFragment();
             }
             return fragment;
 
@@ -88,7 +91,7 @@ public class JobsActivity extends ActionBarActivity {
 
     }
 
-    public static class PendingJobsFragment extends Fragment {
+    public static class MyOrdersFragment extends Fragment {
         private LinearLayout jobsLayout;
 
         @Override
@@ -229,7 +232,7 @@ public class JobsActivity extends ActionBarActivity {
         }
     }
 
-    public static class OpenJobsFragment extends Fragment {
+    public static class OpenBidsFragment extends Fragment {
         private LinearLayout jobsLayout;
 
         @Override
@@ -274,16 +277,11 @@ public class JobsActivity extends ActionBarActivity {
             TextView description = (TextView) view.findViewById(R.id.description);
             TextView date = (TextView) view.findViewById(R.id.date);
             TextView address = (TextView) view.findViewById(R.id.address);
-            TextView name = (TextView) view.findViewById(R.id.name);
-            TextView phoneNumber = (TextView) view.findViewById(R.id.phone_number);
 
             String appointmentTime = formatDate(job.getAppointmentTime());
 
             date.setText(appointmentTime);
             description.setText(job.getRequest());
-            address.setText(job.getAddress());
-            name.setText(job.getUser().getName());
-            phoneNumber.setText("(" + job.getUser().getPhoneNumber() + ")");
 
             Button acceptButton = (Button) view.findViewById(R.id.accept_button);
             Button rejectButton = (Button) view.findViewById(R.id.reject_button);
@@ -306,9 +304,32 @@ public class JobsActivity extends ActionBarActivity {
                 LatLng location = job.getLocation().asLatLng();
                 ImageView imageView = (ImageView) view.findViewById(R.id.location_thumbnail);
                 fetchAndSetLocationBitmap(location, imageView, getActivity());
+                fetchAndSetApproximateLocation(location, address, getActivity());
             }
 
             jobsLayout.addView(view);
+        }
+
+        private void fetchAndSetApproximateLocation(final LatLng location, final TextView addressView, final Context context) {
+            new AsyncTask<Object, Object, Address>() {
+                @Override
+                protected Address doInBackground(Object... objects) {
+                    Geocoder geocoder;
+                    geocoder = new Geocoder(context);
+                    try {
+                        return geocoder.getFromLocation(location.latitude, location.longitude, 1).get(0);
+                    } catch (IOException e) {
+                        return null;
+                    }
+                }
+
+                @Override
+                protected void onPostExecute(Address address) {
+                    if(address != null) {
+                        addressView.setText(address.getSubLocality() + " (Approximate)");
+                    }
+                }
+            }.execute();
         }
 
         private void rejectJob(final Job job, final View view) {
@@ -388,8 +409,8 @@ public class JobsActivity extends ActionBarActivity {
 
         ActionBar.TabListener tabListener = new TabListener();
 
-        actionBar.addTab(actionBar.newTab().setText("ACCEPTED").setTabListener(tabListener));
-        actionBar.addTab(actionBar.newTab().setText("OPEN").setTabListener(tabListener));
+        actionBar.addTab(actionBar.newTab().setText("MY ORDERS").setTabListener(tabListener));
+        actionBar.addTab(actionBar.newTab().setText("OPEN BIDS").setTabListener(tabListener));
     }
 
     private static void fetchAndSetLocationBitmap(final LatLng latLng, final ImageView imageContent, final Activity activity) {

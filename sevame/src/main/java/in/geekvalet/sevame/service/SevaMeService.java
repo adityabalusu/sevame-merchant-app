@@ -76,7 +76,7 @@ public interface SevaMeService {
     Response stopJob(@Path("jobId") String jobId);
 
     @POST("/serviceprovider/{serviceProviderId}/verify/")
-    Response requestOTP(@Path("serviceProviderId") String serviceProviderId, @Query("phone_number") String phoneNumber);
+    Response requestOTP(@Path("serviceProviderId") String serviceProviderId, @Query("phone_number") String phoneNumber, @Query("name") String name);
 
     @POST("/serviceprovider/{serviceProviderId}/verify/")
     Response verifyServiceProvider(@Path("serviceProviderId") String serviceProviderId, @Query("otp") String otp);
