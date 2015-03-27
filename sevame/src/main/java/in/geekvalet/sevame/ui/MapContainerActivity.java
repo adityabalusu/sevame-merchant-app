@@ -14,16 +14,19 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
+//import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.location.LocationClient;
+//import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 
-/**
- * Created by gautam on 2/6/14.
- */
+/*
+ Created by gautam on 2/6/14.
+*/
+
+
 public abstract class MapContainerActivity extends ActionBarActivity {
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private static final long UPDATE_INTERVAL = 5000;
@@ -31,7 +34,7 @@ public abstract class MapContainerActivity extends ActionBarActivity {
     private static final String LOG_TAG = MapContainerActivity.class.getName();
 
     private GoogleMap map;
-    private LocationClient locationClient;
+    //private LocationClient locationClient;
     private LocationRequest locationRequest;
     private boolean locationInitialized = false;
 
@@ -57,19 +60,14 @@ public abstract class MapContainerActivity extends ActionBarActivity {
     }
 
     protected class GooglePlayConnectionHandler implements
-            GooglePlayServicesClient.ConnectionCallbacks,
-            GooglePlayServicesClient.OnConnectionFailedListener {
-
+            //GooglePlayServicesClient.ConnectionCallbacks,
+            GoogleApiClient.ConnectionCallbacks,
+            GoogleApiClient.OnConnectionFailedListener {
         @Override
         public void onConnected(Bundle bundle) {
             initializeCurrentLocation();
         }
 
-        @Override
-        public void onDisconnected() {
-            Toast.makeText(MapContainerActivity.this, "Disconnected from the internet. Please re-connect.",
-                    Toast.LENGTH_SHORT).show();
-        }
 
         @Override
         public void onConnectionFailed(ConnectionResult connectionResult) {
@@ -88,6 +86,12 @@ public abstract class MapContainerActivity extends ActionBarActivity {
                 showErrorDialog(connectionResult.getErrorCode());
             }
 
+        }
+
+        @Override
+        public void onConnectionSuspended(int i) {
+            Toast.makeText(MapContainerActivity.this, "Disconnected from the internet. Please re-connect.",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -166,13 +170,13 @@ public abstract class MapContainerActivity extends ActionBarActivity {
                 map.setMyLocationEnabled(true);
             }
 
-            if(requireCurrentLocation()) {
+   /*         if(requireCurrentLocation()) {
                 GooglePlayConnectionHandler googlePlayConnectionHandler = new GooglePlayConnectionHandler();
                 locationClient = new LocationClient(this , googlePlayConnectionHandler, googlePlayConnectionHandler);
                 initializeCurrentLocation();
                 setupLocationRequest();
                 registerLayoutListener();
-            }
+            }*/
         }
     }
 
@@ -197,7 +201,7 @@ public abstract class MapContainerActivity extends ActionBarActivity {
     }
 
     private void initializeCurrentLocation() {
-        if(isGooglePlayServicesAvailable() && locationClient.isConnected()) {
+    /*    if(isGooglePlayServicesAvailable() && locationClient.isConnected()) {
             Location currentLocation = locationClient.getLastLocation();
 
             if(!locationInitialized) {
@@ -205,23 +209,23 @@ public abstract class MapContainerActivity extends ActionBarActivity {
                 locationClient.requestLocationUpdates(locationRequest, new LocationListener());
                 locationInitialized = true;
             }
-        }
+        }*/
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        if(requireCurrentLocation()) {
+      /*  if(requireCurrentLocation()) {
             locationClient.connect();
-        }
+        }*/
     }
 
     @Override
     protected void onStop() {
-        if(requireCurrentLocation()) {
+       /* if(requireCurrentLocation()) {
             locationClient.disconnect();
-        }
+        }*/
 
         super.onStop();
     }

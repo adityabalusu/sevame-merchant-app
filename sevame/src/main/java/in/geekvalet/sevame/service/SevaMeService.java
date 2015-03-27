@@ -16,8 +16,8 @@ import java.util.Map;
  */
 public interface SevaMeService {
 
-    public static String BASE_URL = "https://sevame.in/api";
-
+    public static String BASE_URL = "http://sevame.in/api";
+    //public static String BASE_URL = "https://localhost:8888/api";
     public static class LoginRequest {
         public String accessToken;
 
@@ -58,7 +58,7 @@ public interface SevaMeService {
         }
     }
 
-    @POST("/serviceprovider/auth/google/")
+    @POST("/auth/google/?user_type=service_provider")
     Response login(@Body LoginRequest loginRequest);
 
     @GET("/serviceprovider/{serviceProviderId}")
@@ -97,4 +97,9 @@ public interface SevaMeService {
 
     @GET("/serviceprovider/{serviceProviderId}/job?status=assigned")
     ListResponse<Job> fetchOpenJobs(@Path("serviceProviderId") String serviceProviderId);
+
+    //Mamu's API
+    //@GET("service")
+
+
 }

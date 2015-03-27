@@ -4,3 +4,12 @@ sevame/build/*
 *.iml
 local.properties
 build/*
+
+#Ignore release and build files
+sevame/src/release/
+sevame/src/main/bin/
+sevame/src/main/.settings/
+sevame/src/main/.project
+sevame/src/main/.classpath
+sevame/src/main/libs/
+sevame/src/main/project.properties

@@ -106,7 +106,7 @@ public class SelectLocationActivity extends MapContainerActivity {
         Log.d(LOG_TAG, "Showing location " + locationName);
         byte[] data = savedMaps.getBytes(locationName, null);
 
-        if(data != null) {
+   /*     if(data != null) {
             Parcel parcel = Parcel.obtain();
             parcel.unmarshall(data, 0, data.length);
             parcel.setDataPosition(0);
@@ -137,7 +137,7 @@ public class SelectLocationActivity extends MapContainerActivity {
                 }
             });
             savedLocations.addView(view);
-        }
+        }*/
     }
 
     private void setupSaveLocationButton() {
