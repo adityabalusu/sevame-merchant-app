@@ -283,9 +283,6 @@ public class LoginActivity extends FragmentActivity implements ConnectionCallbac
             nameValuePairs.add(new BasicNameValuePair("access_token", serverAuthCode));
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs))*/;
             //
-            //editor.putString("session_token", "test");
-            Application app = (Application)getApplicationContext();
-            SharedPreferences.Editor editor = app.getEditor();
             String json = "{\"access_token\":\""+idToken+"\"}";
             StringEntity params =new StringEntity(json);
             httpPost.setEntity(params);
@@ -294,8 +291,7 @@ public class LoginActivity extends FragmentActivity implements ConnectionCallbac
             String sessionId = header[0].getValue();
             int statusCode = response.getStatusLine().getStatusCode();
             final String responseBody = EntityUtils.toString(response.getEntity());
-            editor.putString("session_token", "sessionId");
-            editor.commit();
+            Application.getDataStore().saveAuthToken(sessionId);
             Log.i("TAG", "Code: " + statusCode);
             Log.i("TAG", "Resp: " + responseBody);
 

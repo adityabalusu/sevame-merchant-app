@@ -101,5 +101,7 @@ public interface SevaMeService {
     //Mamu's API
     //@GET("service")
 
+    @GET("/order/")
+    ListResponse<Job>fetchOrders();
 
 }

@@ -22,7 +22,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.List;
+
+import in.geekvalet.sevame.Application;
+import in.geekvalet.sevame.service.SevaMeService.ListResponse;
 import in.geekvalet.sevame.R;
+import in.geekvalet.sevame.model.Job;
+import in.geekvalet.sevame.service.SevaMeService;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -251,6 +257,9 @@ public class NavigationDrawerFragment extends Fragment {
 
         if (item.getItemId() == R.id.open_jobs) {
 
+           List<Job> jobs = Application.getSevaMeService().fetchOrders().objects;
+
+           Job job1 = jobs.get(0);
 
             Toast.makeText(getActivity(), "Open Jobs.", Toast.LENGTH_SHORT).show();
             return true;

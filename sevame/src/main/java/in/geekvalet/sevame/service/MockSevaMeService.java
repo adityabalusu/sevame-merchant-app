@@ -143,4 +143,8 @@ public class MockSevaMeService implements SevaMeService {
         return response;
     }
 
+    @Override
+    public ListResponse<Job> fetchOrders() {
+        return null;
+    }
 }

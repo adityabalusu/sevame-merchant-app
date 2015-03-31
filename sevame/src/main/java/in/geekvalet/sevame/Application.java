@@ -54,6 +54,7 @@ public class Application extends android.app.Application {
         RequestInterceptor requestInterceptor = new RequestInterceptor() {
             @Override
             public void intercept(RequestInterceptor.RequestFacade request) {
+                //SharedPreferences.Editor editor = getEditor();
                 String authToken = Application.getDataStore().getAuthToken();
                 if(authToken != null) {
                     request.addHeader("X-Session-Id", authToken);
