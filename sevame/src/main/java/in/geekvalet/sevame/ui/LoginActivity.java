@@ -78,7 +78,9 @@ public class LoginActivity extends FragmentActivity implements ConnectionCallbac
         btnGplusLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                signInWithGplus();
+                //signInWithGplus();
+                Intent openMainActivity = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(openMainActivity);
             }
         });
 

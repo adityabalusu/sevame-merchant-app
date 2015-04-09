@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Geek Valet</string>
+    <string name="app_name">Seva Me</string>
     <string name="title_activity_pending_jobs">Pending Jobs</string>
     <string name="title_activity_requirement_responses">Geek Valet</string>
     <string name="title_activity_conversation">Geek Valet</string>
@@ -37,5 +37,36 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
+
+    <string name="title_section1">Home</string>
+    <string name="title_section2">Profile</string>
+    <string name="title_section3">Log Out</string>
+
+    <string name="action_example">Example action</string>
+
+    <string-array name="navigation_drawer_items_array">
+        <item>Home</item>
+        <item>Profile</item>
+        <item>Log Out</item>
+    </string-array>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="title_activity_profile">Profile</string>
+
+    <!--Mamu Strings-->
+    <string name="address">Address</string>
+    <string name="name">Name</string>
+    <string name="phone_title">Phone</string>
+    <string name="service_title">Service</string>
+    <string name="experience_title">Experience</string>
+    <string name="call_seva_me_title">Call Sevame</string>
+    <string name="edit_title">Edit</string>
+    <string name="job_desc_id_tile">Job Id</string>
+    <string name="appt_time_title">Appointment Time</string>
+    <string name="job_desc_title">Job Description</string>
+    <string name="material_name">Name : </string>
+    <string name="material_cost">Cost : </string>
+    <string name="cus_name_title">Customer Name</string>
 
 </resources>

@@ -1,0 +1,336 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="in.geekvalet.sevame.ui.CustomerAccess">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_weight="1.7"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+
+            <!--Address Layout-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="2"
+                android:orientation="vertical">
+
+                <!--JoB Id  Container-->
+                <RelativeLayout
+                    android:layout_weight="0.4"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+                    <!--Inner Layout-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:weightSum="2"
+                        android:orientation="vertical">
+                        <!--Title Description-->
+                        <RelativeLayout
+                            android:layout_weight="0.5"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:background="#D6D6CC">
+                            <TextView
+                                android:id="@+id/jb_order_id"
+                                android:text="@string/job_desc_id_tile"
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@android:color/darker_gray"/>
+                        <!--Title Description End here-->
+
+                        <!--main Description-->
+                        <RelativeLayout
+                            android:layout_weight="1.5"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp">
+                            <TextView
+                                android:id="@+id/jb_id_text1"
+                                android:gravity="center_vertical"
+                                android:text="1234567"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+                        <!--Main Description ends here-->
+                        <!--job Descroption Ends here-->
+
+                        <!-- LIne -->
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/darker_gray"/>
+                        <!---->
+                    </LinearLayout>
+                </RelativeLayout>
+                <!--Job Id Container Ends here-->
+                <!---->
+
+                <!--Customer Name-->
+                <RelativeLayout
+                    android:layout_weight="0.4"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+                    <!--Inner Layout-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:weightSum="2"
+                        android:orientation="vertical">
+                        <!--Title Description-->
+                        <RelativeLayout
+                            android:layout_weight="0.5"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp">
+                            <TextView
+                                android:id="@+id/cus_name_id"
+                                android:text="@string/cus_name_title"
+                                android:textStyle="bold"
+                                android:background="#D6D6CC"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@android:color/darker_gray"/>
+                        <!--Title Description End here-->
+
+                        <!--main Description-->
+                        <RelativeLayout
+                            android:layout_weight="1.5"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp">
+                            <TextView
+                                android:id="@+id/cus_name_txt"
+                                android:gravity="center_vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+                        <!--Main Description ends here-->
+                        <!--job Descroption Ends here-->
+
+                        <!-- LIne -->
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/darker_gray"/>
+                        <!---->
+                    </LinearLayout>
+                </RelativeLayout>
+                <!--Customer Name End here-->
+
+                <!---->
+                <!--Description Container Starts here-->
+                <RelativeLayout
+                    android:layout_weight="0.4"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+                    <!--Inner Layout-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:weightSum="2"
+                        android:orientation="vertical">
+                        <!--Title Description-->
+                        <RelativeLayout
+                            android:layout_weight="0.5"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp">
+                            <TextView
+                                android:id="@+id/jb_desc"
+                                android:text="@string/job_desc_title"
+                                android:background="#D6D6CC"
+                                android:textStyle="bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@android:color/darker_gray"/>
+                        <!--Title Description End here-->
+
+                        <!--main Description-->
+                        <RelativeLayout
+                            android:layout_weight="1.5"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp">
+                            <TextView
+                                android:id="@+id/jb_desc_text"
+                                android:gravity="center_vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+                        <!--Main Description ends here-->
+                        <!--job Descroption Ends here-->
+
+                        <!-- LIne -->
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/darker_gray"/>
+                        <!---->
+                    </LinearLayout>
+                </RelativeLayout>
+                <!--Description Container ENds Here-->
+
+                <!--Appointment Time start here-->
+                <RelativeLayout
+                    android:layout_weight="0.4"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+                    <!--Inner Layout-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:weightSum="2"
+                        android:orientation="vertical">
+                        <!--Title Description-->
+                        <RelativeLayout
+                            android:layout_weight="0.5"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp">
+                            <TextView
+                                android:id="@+id/appt_time_id"
+                                android:text="@string/appt_time_title"
+                                android:background="#D6D6CC"
+                                android:textStyle="bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@android:color/darker_gray"/>
+                        <!--Title Description End here-->
+
+                        <!--main Description-->
+                        <RelativeLayout
+                            android:layout_weight="1.5"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp">
+                            <TextView
+                                android:id="@+id/appoint_time_txt"
+                                android:gravity="center_vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+                        <!--Main Description ends here-->
+                        <!--job Descroption Ends here-->
+
+                        <!-- LIne -->
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/darker_gray"/>
+                        <!---->
+                    </LinearLayout>
+                </RelativeLayout>
+                <!--Appointment Time End here-->
+
+                <!-- Customer Address start here-->
+                <RelativeLayout
+                    android:layout_weight="0.4"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+                    <!--Inner Layout-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:weightSum="2"
+                        android:orientation="vertical">
+                        <!--Title Description-->
+                        <RelativeLayout
+                            android:layout_weight="0.5"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp">
+                            <TextView
+                                android:id="@+id/address_id"
+                                android:text="@string/address"
+                                android:background="#D6D6CC"
+                                android:textStyle="bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@android:color/darker_gray"/>
+                        <!--Title Description End here-->
+
+                        <!--main Description-->
+                        <RelativeLayout
+                            android:layout_weight="1.5"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp">
+                            <TextView
+                                android:id="@+id/address_txt"
+                                android:gravity="center_vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+                        <!--Main Description ends here-->
+                        <!--job Descroption Ends here-->
+
+                        <!-- LIne -->
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/darker_gray"/>
+                        <!---->
+                    </LinearLayout>
+                </RelativeLayout>
+                <!--Customer Address  Ends here-->
+
+
+
+
+            </LinearLayout>
+            <!--Address layout ends here-->
+
+
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_weight="0.3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="2">
+                <Button
+                    android:id="@+id/cust_location"
+                    android:text="Location"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/go_customer"
+                    android:text="Go"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</FrameLayout>

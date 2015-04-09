@@ -1,5 +1,6 @@
 package in.geekvalet.sevame;
 
+import in.geekvalet.sevame.libs.KeyValueStore;
 import in.geekvalet.sevame.model.ServiceProvider;
 
 /**
@@ -7,6 +8,8 @@ import in.geekvalet.sevame.model.ServiceProvider;
  */
 public interface DataStore {
     void saveServiceProvider(ServiceProvider serviceProvider);
+
+    KeyValueStore getKeyStore();
 
     ServiceProvider getServiceProvider();
 

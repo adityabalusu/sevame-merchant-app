@@ -1,0 +1,484 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="in.geekvalet.sevame.ui.Profile">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <!--Top Box Starts-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <!--Box 1 Starts-->
+                <RelativeLayout
+                    android:layout_weight="0.8"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <!--SubDivision-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="2">
+
+                        <!--Top1-->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.3">
+
+                        </RelativeLayout>
+
+                        <!--Top2 Image-->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1.4">
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/placeholder"
+                                android:layout_marginRight="10dp"
+                                android:background="#000000"
+                                android:padding="1dp"/>
+
+                        </RelativeLayout>
+
+                        <!--Top3 Image-->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.3">
+
+                            <!--SevaMe Badges-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.66">
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/ic_verfied"/>
+
+                                </RelativeLayout>
+
+                            </LinearLayout>
+                            <!--SevaMe Badges End-->
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                    <!--Subdivision Ends Here-->
+
+
+                </RelativeLayout>
+                <!--Box 1 Ends here-->
+
+                <!--Box 2 starts here-->
+                <RelativeLayout
+                    android:layout_weight="1.2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                    <!-- Profile Name starts-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="2">
+
+                        <!--Name starts Here-->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.5">
+
+                            <!--SubDivision-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+                                <!--Name Text-->
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.5">
+                                    <TextView
+                                        android:id="@+id/name_title"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="@string/name"
+                                        android:gravity="center_vertical"
+                                        android:textStyle="bold"/>
+                                </RelativeLayout>
+                                <!--Name Text ends here-->
+
+                                <!--Name Value Start Here-->
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1.5">
+                                    <TextView
+                                        android:id="@+id/name_text"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="Mamu"
+                                        android:gravity="center_vertical"/>
+                                </RelativeLayout>
+                                <!--Name Value Ends Here-->
+
+
+                            </LinearLayout>
+                            <!--SubDivision ends Here-->
+
+                        </RelativeLayout>  <!--Name End here-->
+
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/darker_gray"/>
+
+                        <!--Phone Number-->
+                        <RelativeLayout
+                            android:id="@+id/phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.5">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+                                <!--Phone Text-->
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.5">
+                                    <TextView
+                                        android:id="@+id/phone_title"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="@string/phone_title"
+                                        android:gravity="center_vertical"
+                                        android:textStyle="bold"/>
+                                </RelativeLayout>
+                                <!--Phone Text ends here-->
+
+                                <!--Phone Value Start Here-->
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1.5">
+                                    <TextView
+                                        android:id="@+id/phone_text"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="9538052313"
+                                        android:gravity="center_vertical"/>
+                                </RelativeLayout>
+                                <!--Name Value Ends Here-->
+
+
+                            </LinearLayout>
+
+                        </RelativeLayout>  <!--Phone Number Ends here-->
+
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/darker_gray"/>
+
+                        <!--Service-->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.5">
+
+                            <!--SubDivision-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+                                <!--Service Type Text-->
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.5">
+                                    <TextView
+                                        android:id="@+id/email_title"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="@string/service_title"
+                                        android:gravity="center_vertical"
+                                        android:textStyle="bold"/>
+                                </RelativeLayout>
+                                <!--Email Text ends here-->
+
+                                <!--Email Value Start Here-->
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1.5">
+                                    <TextView
+                                        android:id="@+id/email_text"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="Plumber"
+                                        android:gravity="center_vertical"/>
+                                </RelativeLayout>
+                                <!--Name Value Ends Here-->
+                            </LinearLayout>
+
+                        </RelativeLayout>  <!--Service Ends here-->
+
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/darker_gray"/>
+
+                        <!--Experience Starts Here-->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.5">
+
+                            <!--SubDivision-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+                                <!--Experience Type Text-->
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.8">
+                                    <TextView
+                                        android:id="@+id/experience_title"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="@string/experience_title"
+                                        android:gravity="center_vertical"
+                                        android:textStyle="bold"/>
+                                </RelativeLayout>
+                                <!--Experience Text ends here-->
+
+                                <!--Experience Value Start Here-->
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1.5">
+                                    <TextView
+                                        android:id="@+id/experience_text"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="40 months "
+                                        android:gravity="center_vertical"/>
+                                </RelativeLayout>
+                                <!--Experience Value Ends Here-->
+                            </LinearLayout>
+                        </RelativeLayout>
+                        <!--Experience Ends Here-->
+
+                    </LinearLayout> <!--Profile Ends here-->
+
+                </RelativeLayout>
+                <!--Box 2 Ends here-->
+
+            </LinearLayout>
+        </RelativeLayout>
+        <!--Top Box ends here-->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"/>
+
+        <!--Bottom Box starts here-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:weightSum="2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!--Partition 1 starts-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.2">
+
+                    <!--Address Tab starts-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="2">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.4"
+                            android:layout_gravity="center">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="@string/address"
+                                android:textStyle="bold"/>
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/darker_gray"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.4"
+                            android:layout_gravity="center">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="1st Block Koramangala"
+                                />
+                        </RelativeLayout>
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@android:color/darker_gray"/>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.4"
+                            android:layout_gravity="center">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="#112, Wipro signal"
+                                />
+                        </RelativeLayout>
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@android:color/darker_gray"/>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.4"
+                            android:layout_gravity="center">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="Bangalore"
+                                />
+                        </RelativeLayout>
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@android:color/darker_gray"/>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.4"
+                            android:layout_gravity="center">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="Karnataka  560093"
+                                />
+                        </RelativeLayout>
+                    </LinearLayout>
+                    <!--Address Tab Ends Here-->
+
+
+                </RelativeLayout>
+                <!--Partition 1 Ends-->
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:background="@android:color/darker_gray"/>
+                <!--Partition 2 Starts here-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.8">
+
+                    <!--Buttons partitions starts here-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <!--Sevame Call me-->
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:gravity="center">
+                            <Button
+                                android:id="@+id/call_seva_me_button"
+                                android:layout_width="130dp"
+                                android:layout_height="40dp"
+                                android:text="@string/call_seva_me_title"/>
+                        </RelativeLayout>
+                        <!--Sevame Call me ends here-->
+                        <!--SevaMe Edit-->
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:gravity="center">
+
+                            <Button
+                                android:id="@+id/edit_button"
+                                android:layout_width="130dp"
+                                android:layout_height="40dp"
+                                android:text="@string/edit_title"/>
+                        </RelativeLayout>
+
+                        <!--Sevame Edit Ends here-->
+                    </LinearLayout>
+                    <!--Buttons partitions Ends here-->
+
+                </RelativeLayout>
+                <!--Partition 2 ends here-->
+            </LinearLayout>
+
+        </RelativeLayout>
+        <!--Bottom Box Ends here-->
+
+    </LinearLayout>
+
+
+</FrameLayout>

@@ -20,6 +20,11 @@ public class DataStoreImpl implements DataStore {
     }
 
     @Override
+    public KeyValueStore getKeyStore() {
+        return keyValueStore;
+    }
+
+    @Override
     public ServiceProvider getServiceProvider() {
         return keyValueStore.getObject("serviceProvider", ServiceProvider.class, null);
     }

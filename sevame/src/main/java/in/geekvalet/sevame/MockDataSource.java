@@ -1,5 +1,6 @@
 package in.geekvalet.sevame;
 
+import in.geekvalet.sevame.libs.KeyValueStore;
 import in.geekvalet.sevame.model.ServiceProvider;
 
 /**
@@ -9,6 +10,11 @@ public class MockDataSource implements DataStore{
     @Override
     public void saveServiceProvider(ServiceProvider serviceProvider) {
 
+    }
+
+    @Override
+    public KeyValueStore getKeyStore() {
+        return null;
     }
 
     @Override
