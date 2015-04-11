@@ -1,5 +1,7 @@
 package in.geekvalet.sevame.service;
 
+import org.codehaus.jackson.map.ObjectMapper;
+
 import in.geekvalet.sevame.model.Job;
 import in.geekvalet.sevame.model.Service;
 import in.geekvalet.sevame.model.Location;
@@ -49,6 +51,7 @@ public interface SevaMeService {
             return this;
         }
     }
+
 
     public static class StopJobRequest {
         public float rating;

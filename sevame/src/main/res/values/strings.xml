@@ -69,4 +69,12 @@
     <string name="material_cost">Cost : </string>
     <string name="cus_name_title">Customer Name</string>
 
+    <!--Hints-->
+    <string name="name_hint">Name</string>
+    <string name="phone_hint">Phone Number</string>
+    <string name="service_hint">Service</string>
+    <string name="experience_hint">Experience</string>
+    <string name="address_hint">Address</string>
+
+
 </resources>

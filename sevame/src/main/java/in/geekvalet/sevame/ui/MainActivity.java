@@ -44,7 +44,7 @@ public class MainActivity extends ActionBarActivity {
 
         ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[3];
 
-        drawerItem[0] = new ObjectDrawerItem(R.drawable.ic_action_home, "home");
+        drawerItem[0] = new ObjectDrawerItem(R.drawable.ic_action_home, "Open Jobs");
         drawerItem[1] = new ObjectDrawerItem(R.drawable.ic_action_user_profile, "Profile");
         drawerItem[2] = new ObjectDrawerItem(R.drawable.ic_action_share, "Share");
 

@@ -29,6 +29,11 @@ public class KeyValueStore {
 
     }
 
+    public void writeObject(String key, Object obj){
+        Gson gson = new Gson();
+        write(key, gson.toJson(obj));
+    }
+
     public void write(String key, String value) {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(key, value);

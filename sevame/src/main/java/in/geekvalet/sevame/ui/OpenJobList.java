@@ -17,11 +17,15 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.codehaus.jackson.map.ObjectMapper;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import in.geekvalet.sevame.Application;
 import in.geekvalet.sevame.R;
+import in.geekvalet.sevame.httpClient.HttpClientM;
+import in.geekvalet.sevame.httpClient.Models.User;
 import in.geekvalet.sevame.libs.KeyValueStore;
 import in.geekvalet.sevame.model.Job;
 import in.geekvalet.sevame.util.AssignedListAdapter;
@@ -91,6 +95,7 @@ public class OpenJobList extends Fragment {
         adapter  = new AssignedListAdapter(getActivity(), arrayOfJobs);
         ListView listview =  (ListView)view.findViewById(R.id.listView1);
         listview.setAdapter(adapter);
+        getOpenJobs();
 
  /*       Bundle b = getArguments();
         int s = b.getInt("jobType"); if ( 0 == s) {
@@ -215,6 +220,13 @@ public class OpenJobList extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    public String getOpenJobs(){
+
+   //Implement get jobs
+
+        return null;
     }
 
 }

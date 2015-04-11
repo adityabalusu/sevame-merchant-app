@@ -8,11 +8,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.bind.DateTypeAdapter;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.PropertyNamingStrategy;
+
 import java.util.Date;
 
 import in.geekvalet.sevame.service.MockSevaMeService;
 import in.geekvalet.sevame.service.SevaMeService;
-import in.geekvalet.sevame.service.util.RestEndpoints;
+//import in.geekvalet.sevame.service.util;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
@@ -75,14 +78,14 @@ public class Application extends android.app.Application {
         //return new MockSevaMeService();
     }
 
-
+/*
     public static RestEndpoints getEndPointService(){
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .registerTypeAdapter(Date.class, new DateTypeAdapter())
                 .create();
 
-        /* RequestInterceptor requestInterceptor = new RequestInterceptor() {
+        *//* RequestInterceptor requestInterceptor = new RequestInterceptor() {
             @Override
             public void intercept(RequestInterceptor.RequestFacade request) {
                 String authToken = Application.getDataStore().getAuthToken();
@@ -92,7 +95,7 @@ public class Application extends android.app.Application {
             }
         };*/
 
-        RestAdapter restAdapter = new RestAdapter.Builder()
+    /*    RestAdapter restAdapter = new RestAdapter.Builder()
                 .setConverter(new GsonConverter(gson))
                 .setEndpoint("http://localhost:8888/api")
                 .setLogLevel(RestAdapter.LogLevel.FULL)
@@ -100,6 +103,14 @@ public class Application extends android.app.Application {
                 .build();
 
         return restAdapter.create(RestEndpoints.class);
+    }*/
+
+
+    public static ObjectMapper  getJacksonMapper(){
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setPropertyNamingStrategy(
+                PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        return mapper;
     }
 
     @Override

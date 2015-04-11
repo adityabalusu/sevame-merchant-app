@@ -72,6 +72,7 @@
                                     android:layout_height="match_parent"
                                     android:layout_weight="0.66">
                                     <ImageView
+                                        android:id="@+id/s_verified"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:src="@drawable/ic_verfied"/>
@@ -120,13 +121,13 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="0.5">
-                                    <TextView
-                                        android:id="@+id/name_title"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:text="@string/name"
-                                        android:gravity="center_vertical"
-                                        android:textStyle="bold"/>
+                                   <TextView
+                                       android:layout_width="match_parent"
+                                       android:layout_height="match_parent"
+                                       android:textStyle="bold"
+                                       android:text="@string/name"
+                                       android:gravity="center_vertical"/>
+
                                 </RelativeLayout>
                                 <!--Name Text ends here-->
 
@@ -135,12 +136,30 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1.5">
-                                    <TextView
-                                        android:id="@+id/name_text"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:text="Mamu"
-                                        android:gravity="center_vertical"/>
+                                    <ViewSwitcher
+                                        xmlns:android="http://schemas.android.com/apk/res/android"
+                                        android:id="@+id/switcher_name"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="fill_parent" >
+
+                                        <TextView
+                                            android:clickable="true"
+                                            android:id="@+id/name_text_v"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:gravity="center_vertical"
+                                            />
+                                        <EditText
+                                            android:id="@+id/name_edit_v"
+                                            android:layout_width="fill_parent"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="15dp"
+                                            android:hint="@string/name_hint"
+                                            android:gravity="center_vertical">
+                                        </EditText>
+                                    </ViewSwitcher>
+
+
                                 </RelativeLayout>
                                 <!--Name Value Ends Here-->
 
@@ -187,12 +206,31 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1.5">
+
+                                    <ViewSwitcher
+                                        xmlns:android="http://schemas.android.com/apk/res/android"
+                                        android:id="@+id/switcher_phone"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="fill_parent" >
+
                                     <TextView
-                                        android:id="@+id/phone_text"
+                                        android:clickable="true"
+                                        android:id="@+id/phone_text_v"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:text="9538052313"
-                                        android:gravity="center_vertical"/>
+                                        android:gravity="center_vertical"
+                                        />
+                                    <EditText
+                                        android:id="@+id/phone_edit_v"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="15dp"
+                                        android:hint="@string/phone_hint"
+                                        android:gravity="center_vertical">
+                                    </EditText>
+                                    </ViewSwitcher>
+
+
                                 </RelativeLayout>
                                 <!--Name Value Ends Here-->
 
@@ -224,26 +262,44 @@
                                     android:layout_height="match_parent"
                                     android:layout_weight="0.5">
                                     <TextView
-                                        android:id="@+id/email_title"
+                                        android:id="@+id/service_title"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:text="@string/service_title"
                                         android:gravity="center_vertical"
                                         android:textStyle="bold"/>
                                 </RelativeLayout>
-                                <!--Email Text ends here-->
+                                <!--Service Text ends here-->
 
-                                <!--Email Value Start Here-->
+                                <!--Service Value Start Here-->
                                 <RelativeLayout
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1.5">
-                                    <TextView
-                                        android:id="@+id/email_text"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:text="Plumber"
-                                        android:gravity="center_vertical"/>
+
+                                    <ViewSwitcher
+                                        xmlns:android="http://schemas.android.com/apk/res/android"
+                                        android:id="@+id/switcher_service"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="fill_parent" >
+
+                                        <TextView
+                                            android:clickable="true"
+                                            android:id="@+id/service_text_v"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:gravity="center_vertical"
+                                            />
+                                        <EditText
+                                            android:id="@+id/service_edit_v"
+                                            android:layout_width="fill_parent"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="15dp"
+                                            android:hint="@string/service_hint"
+                                            android:gravity="center_vertical">
+                                        </EditText>
+                                    </ViewSwitcher>
+
                                 </RelativeLayout>
                                 <!--Name Value Ends Here-->
                             </LinearLayout>
@@ -287,12 +343,33 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1.5">
-                                    <TextView
-                                        android:id="@+id/experience_text"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:text="40 months "
-                                        android:gravity="center_vertical"/>
+
+                                    <ViewSwitcher
+                                        xmlns:android="http://schemas.android.com/apk/res/android"
+                                        android:id="@+id/switcher_experience"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="fill_parent" >
+
+                                        <TextView
+                                            android:clickable="true"
+                                            android:id="@+id/experience_text_v"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:gravity="center_vertical"
+                                            />
+                                        <EditText
+                                            android:id="@+id/experience_edit_v"
+                                            android:layout_width="fill_parent"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="15dp"
+                                            android:hint="@string/experience_hint"
+                                            android:gravity="center_vertical">
+                                        </EditText>
+                                    </ViewSwitcher>
+
+
+
+
                                 </RelativeLayout>
                                 <!--Experience Value Ends Here-->
                             </LinearLayout>
@@ -359,12 +436,30 @@
                             android:layout_height="0dp"
                             android:layout_weight="0.4"
                             android:layout_gravity="center">
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical"
-                                android:text="1st Block Koramangala"
-                                />
+                            <!--Address 1-->
+                            <ViewSwitcher
+                                xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:id="@+id/switcher_address_1"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent" >
+
+                                <TextView
+                                    android:clickable="true"
+                                    android:id="@+id/address_1_text_v"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical"
+                                    />
+                                <EditText
+                                    android:id="@+id/address_1_edit_v"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="15dp"
+                                    android:hint="@string/address_hint"
+                                    android:gravity="center_vertical">
+                                </EditText>
+                            </ViewSwitcher>
+
                         </RelativeLayout>
                         <View
                             android:layout_width="fill_parent"
@@ -375,12 +470,31 @@
                             android:layout_height="0dp"
                             android:layout_weight="0.4"
                             android:layout_gravity="center">
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical"
-                                android:text="#112, Wipro signal"
-                                />
+
+                            <!--Address 2-->
+                            <ViewSwitcher
+                                xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:id="@+id/switcher_address_2"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent" >
+
+                                <TextView
+                                    android:clickable="true"
+                                    
+                                    android:id="@+id/address_2_text_v"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical"
+                                    />
+                                <EditText
+                                    android:id="@+id/address_2_edit_v"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="15dp"
+                                    android:gravity="center_vertical">
+                                </EditText>
+                            </ViewSwitcher>
+
                         </RelativeLayout>
                         <View
                             android:layout_width="fill_parent"
@@ -391,12 +505,30 @@
                             android:layout_height="0dp"
                             android:layout_weight="0.4"
                             android:layout_gravity="center">
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical"
-                                android:text="Bangalore"
-                                />
+
+                            <ViewSwitcher
+                                xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:id="@+id/switcher_address_3"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent" >
+
+                                <TextView
+                                    android:clickable="true"
+                                    android:id="@+id/address_3_text_v"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical"
+                                    />
+                                <EditText
+                                    android:id="@+id/address_3_edit_v"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="15dp"
+                                    android:gravity="center_vertical">
+                                </EditText>
+                            </ViewSwitcher>
+
+
                         </RelativeLayout>
                         <View
                             android:layout_width="fill_parent"
@@ -407,12 +539,30 @@
                             android:layout_height="0dp"
                             android:layout_weight="0.4"
                             android:layout_gravity="center">
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical"
-                                android:text="Karnataka  560093"
-                                />
+
+                            <ViewSwitcher
+                                xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:id="@+id/switcher_address_4"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent" >
+
+                                <TextView
+                                    android:clickable="true"
+                                    android:id="@+id/address_4_text_v"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical"
+                                    />
+                                <EditText
+                                    android:id="@+id/address_4_edit_v"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="15dp"
+                                    android:gravity="center_vertical">
+                                </EditText>
+                            </ViewSwitcher>
+
+
                         </RelativeLayout>
                     </LinearLayout>
                     <!--Address Tab Ends Here-->
