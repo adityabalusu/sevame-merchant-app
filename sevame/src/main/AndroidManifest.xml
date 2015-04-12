@@ -70,7 +70,7 @@
             android:value="AIzaSyDo2ey9yddyQUWeZRT1NSJ16agyDR1PjE0" />
         <activity
             android:name=".ui.MainActivity"
-            android:label="Seva Me" >
+            android:label="Sevame" >
         </activity>
 
     </application>

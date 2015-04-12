@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Seva Me</string>
+    <string name="app_name">SevaMe</string>
     <string name="title_activity_pending_jobs">Pending Jobs</string>
     <string name="title_activity_requirement_responses">Geek Valet</string>
     <string name="title_activity_conversation">Geek Valet</string>

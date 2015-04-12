@@ -2,633 +2,380 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="in.geekvalet.sevame.ui.Profile">
 
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="2">
-
-        <!--Top Box Starts-->
+        >
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-            <LinearLayout
+            android:layout_height="250dp">
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/placeholder"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+
+        <!--Name text title-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <!--Box 1 Starts-->
-                <RelativeLayout
-                    android:layout_weight="0.8"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent">
-
-                    <!--SubDivision-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:weightSum="2">
-
-                        <!--Top1-->
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="0.3">
-
-                        </RelativeLayout>
-
-                        <!--Top2 Image-->
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1.4">
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/placeholder"
-                                android:layout_marginRight="10dp"
-                                android:background="#000000"
-                                android:padding="1dp"/>
-
-                        </RelativeLayout>
-
-                        <!--Top3 Image-->
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="0.3">
-
-                            <!--SevaMe Badges-->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal"
-                                android:weightSum="2">
-                                <RelativeLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="0.66">
-                                    <ImageView
-                                        android:id="@+id/s_verified"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:src="@drawable/ic_verfied"/>
-
-                                </RelativeLayout>
-
-                            </LinearLayout>
-                            <!--SevaMe Badges End-->
-
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-                    <!--Subdivision Ends Here-->
-
-
-                </RelativeLayout>
-                <!--Box 1 Ends here-->
-
-                <!--Box 2 starts here-->
-                <RelativeLayout
-                    android:layout_weight="1.2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent">
-                    <!-- Profile Name starts-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:weightSum="2">
-
-                        <!--Name starts Here-->
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="0.5">
-
-                            <!--SubDivision-->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal"
-                                android:weightSum="2">
-                                <!--Name Text-->
-                                <RelativeLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="0.5">
-                                   <TextView
-                                       android:layout_width="match_parent"
-                                       android:layout_height="match_parent"
-                                       android:textStyle="bold"
-                                       android:text="@string/name"
-                                       android:gravity="center_vertical"/>
-
-                                </RelativeLayout>
-                                <!--Name Text ends here-->
-
-                                <!--Name Value Start Here-->
-                                <RelativeLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1.5">
-                                    <ViewSwitcher
-                                        xmlns:android="http://schemas.android.com/apk/res/android"
-                                        android:id="@+id/switcher_name"
-                                        android:layout_width="fill_parent"
-                                        android:layout_height="fill_parent" >
-
-                                        <TextView
-                                            android:clickable="true"
-                                            android:id="@+id/name_text_v"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:gravity="center_vertical"
-                                            />
-                                        <EditText
-                                            android:id="@+id/name_edit_v"
-                                            android:layout_width="fill_parent"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="15dp"
-                                            android:hint="@string/name_hint"
-                                            android:gravity="center_vertical">
-                                        </EditText>
-                                    </ViewSwitcher>
-
-
-                                </RelativeLayout>
-                                <!--Name Value Ends Here-->
-
-
-                            </LinearLayout>
-                            <!--SubDivision ends Here-->
-
-                        </RelativeLayout>  <!--Name End here-->
-
-                        <View
-                            android:layout_width="fill_parent"
-                            android:layout_height="2dp"
-                            android:background="@android:color/darker_gray"/>
-
-                        <!--Phone Number-->
-                        <RelativeLayout
-                            android:id="@+id/phone"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="0.5">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal"
-                                android:weightSum="2">
-                                <!--Phone Text-->
-                                <RelativeLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="0.5">
-                                    <TextView
-                                        android:id="@+id/phone_title"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:text="@string/phone_title"
-                                        android:gravity="center_vertical"
-                                        android:textStyle="bold"/>
-                                </RelativeLayout>
-                                <!--Phone Text ends here-->
-
-                                <!--Phone Value Start Here-->
-                                <RelativeLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1.5">
-
-                                    <ViewSwitcher
-                                        xmlns:android="http://schemas.android.com/apk/res/android"
-                                        android:id="@+id/switcher_phone"
-                                        android:layout_width="fill_parent"
-                                        android:layout_height="fill_parent" >
-
-                                    <TextView
-                                        android:clickable="true"
-                                        android:id="@+id/phone_text_v"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:gravity="center_vertical"
-                                        />
-                                    <EditText
-                                        android:id="@+id/phone_edit_v"
-                                        android:layout_width="fill_parent"
-                                        android:layout_height="wrap_content"
-                                        android:textSize="15dp"
-                                        android:hint="@string/phone_hint"
-                                        android:gravity="center_vertical">
-                                    </EditText>
-                                    </ViewSwitcher>
-
-
-                                </RelativeLayout>
-                                <!--Name Value Ends Here-->
-
-
-                            </LinearLayout>
-
-                        </RelativeLayout>  <!--Phone Number Ends here-->
-
-                        <View
-                            android:layout_width="fill_parent"
-                            android:layout_height="2dp"
-                            android:background="@android:color/darker_gray"/>
-
-                        <!--Service-->
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="0.5">
-
-                            <!--SubDivision-->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal"
-                                android:weightSum="2">
-                                <!--Service Type Text-->
-                                <RelativeLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="0.5">
-                                    <TextView
-                                        android:id="@+id/service_title"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:text="@string/service_title"
-                                        android:gravity="center_vertical"
-                                        android:textStyle="bold"/>
-                                </RelativeLayout>
-                                <!--Service Text ends here-->
-
-                                <!--Service Value Start Here-->
-                                <RelativeLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1.5">
-
-                                    <ViewSwitcher
-                                        xmlns:android="http://schemas.android.com/apk/res/android"
-                                        android:id="@+id/switcher_service"
-                                        android:layout_width="fill_parent"
-                                        android:layout_height="fill_parent" >
-
-                                        <TextView
-                                            android:clickable="true"
-                                            android:id="@+id/service_text_v"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:gravity="center_vertical"
-                                            />
-                                        <EditText
-                                            android:id="@+id/service_edit_v"
-                                            android:layout_width="fill_parent"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="15dp"
-                                            android:hint="@string/service_hint"
-                                            android:gravity="center_vertical">
-                                        </EditText>
-                                    </ViewSwitcher>
-
-                                </RelativeLayout>
-                                <!--Name Value Ends Here-->
-                            </LinearLayout>
-
-                        </RelativeLayout>  <!--Service Ends here-->
-
-                        <View
-                            android:layout_width="fill_parent"
-                            android:layout_height="2dp"
-                            android:background="@android:color/darker_gray"/>
-
-                        <!--Experience Starts Here-->
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="0.5">
-
-                            <!--SubDivision-->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal"
-                                android:weightSum="2">
-                                <!--Experience Type Text-->
-                                <RelativeLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="0.8">
-                                    <TextView
-                                        android:id="@+id/experience_title"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:text="@string/experience_title"
-                                        android:gravity="center_vertical"
-                                        android:textStyle="bold"/>
-                                </RelativeLayout>
-                                <!--Experience Text ends here-->
-
-                                <!--Experience Value Start Here-->
-                                <RelativeLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1.5">
-
-                                    <ViewSwitcher
-                                        xmlns:android="http://schemas.android.com/apk/res/android"
-                                        android:id="@+id/switcher_experience"
-                                        android:layout_width="fill_parent"
-                                        android:layout_height="fill_parent" >
-
-                                        <TextView
-                                            android:clickable="true"
-                                            android:id="@+id/experience_text_v"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:gravity="center_vertical"
-                                            />
-                                        <EditText
-                                            android:id="@+id/experience_edit_v"
-                                            android:layout_width="fill_parent"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="15dp"
-                                            android:hint="@string/experience_hint"
-                                            android:gravity="center_vertical">
-                                        </EditText>
-                                    </ViewSwitcher>
-
-
-
-
-                                </RelativeLayout>
-                                <!--Experience Value Ends Here-->
-                            </LinearLayout>
-                        </RelativeLayout>
-                        <!--Experience Ends Here-->
-
-                    </LinearLayout> <!--Profile Ends here-->
-
-                </RelativeLayout>
-                <!--Box 2 Ends here-->
-
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:text="@string/name"
+                android:textStyle="bold"/>
         </RelativeLayout>
-        <!--Top Box ends here-->
+        <!--Name text Title ends here-->
+
+        <!--Separator Line-->
         <View
             android:layout_width="fill_parent"
             android:layout_height="2dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="#CC3300"
+            android:layout_gravity="bottom"/>
+        <!--Separator Line Ends Here-->
 
-        <!--Bottom Box starts here-->
+        <!--Name text-->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:weightSum="2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+            <ViewSwitcher
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/switcher_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
 
-                <!--Partition 1 starts-->
-                <RelativeLayout
+                <TextView
+                    android:clickable="true"
+                    android:layout_marginTop="7dp"
+                    android:id="@+id/name_text_v"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1.2">
-
-                    <!--Address Tab starts-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:weightSum="2">
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="0.4"
-                            android:layout_gravity="center">
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical"
-                                android:text="@string/address"
-                                android:textStyle="bold"/>
-                        </RelativeLayout>
-
-                        <View
-                            android:layout_width="fill_parent"
-                            android:layout_height="2dp"
-                            android:background="@android:color/darker_gray"/>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="0.4"
-                            android:layout_gravity="center">
-                            <!--Address 1-->
-                            <ViewSwitcher
-                                xmlns:android="http://schemas.android.com/apk/res/android"
-                                android:id="@+id/switcher_address_1"
-                                android:layout_width="fill_parent"
-                                android:layout_height="fill_parent" >
-
-                                <TextView
-                                    android:clickable="true"
-                                    android:id="@+id/address_1_text_v"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center_vertical"
-                                    />
-                                <EditText
-                                    android:id="@+id/address_1_edit_v"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="15dp"
-                                    android:hint="@string/address_hint"
-                                    android:gravity="center_vertical">
-                                </EditText>
-                            </ViewSwitcher>
-
-                        </RelativeLayout>
-                        <View
-                            android:layout_width="fill_parent"
-                            android:layout_height="0.5dp"
-                            android:background="@android:color/darker_gray"/>
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="0.4"
-                            android:layout_gravity="center">
-
-                            <!--Address 2-->
-                            <ViewSwitcher
-                                xmlns:android="http://schemas.android.com/apk/res/android"
-                                android:id="@+id/switcher_address_2"
-                                android:layout_width="fill_parent"
-                                android:layout_height="fill_parent" >
-
-                                <TextView
-                                    android:clickable="true"
-                                    
-                                    android:id="@+id/address_2_text_v"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center_vertical"
-                                    />
-                                <EditText
-                                    android:id="@+id/address_2_edit_v"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="15dp"
-                                    android:gravity="center_vertical">
-                                </EditText>
-                            </ViewSwitcher>
-
-                        </RelativeLayout>
-                        <View
-                            android:layout_width="fill_parent"
-                            android:layout_height="0.5dp"
-                            android:background="@android:color/darker_gray"/>
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="0.4"
-                            android:layout_gravity="center">
-
-                            <ViewSwitcher
-                                xmlns:android="http://schemas.android.com/apk/res/android"
-                                android:id="@+id/switcher_address_3"
-                                android:layout_width="fill_parent"
-                                android:layout_height="fill_parent" >
-
-                                <TextView
-                                    android:clickable="true"
-                                    android:id="@+id/address_3_text_v"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center_vertical"
-                                    />
-                                <EditText
-                                    android:id="@+id/address_3_edit_v"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="15dp"
-                                    android:gravity="center_vertical">
-                                </EditText>
-                            </ViewSwitcher>
-
-
-                        </RelativeLayout>
-                        <View
-                            android:layout_width="fill_parent"
-                            android:layout_height="0.5dp"
-                            android:background="@android:color/darker_gray"/>
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="0.4"
-                            android:layout_gravity="center">
-
-                            <ViewSwitcher
-                                xmlns:android="http://schemas.android.com/apk/res/android"
-                                android:id="@+id/switcher_address_4"
-                                android:layout_width="fill_parent"
-                                android:layout_height="fill_parent" >
-
-                                <TextView
-                                    android:clickable="true"
-                                    android:id="@+id/address_4_text_v"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center_vertical"
-                                    />
-                                <EditText
-                                    android:id="@+id/address_4_edit_v"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="15dp"
-                                    android:gravity="center_vertical">
-                                </EditText>
-                            </ViewSwitcher>
-
-
-                        </RelativeLayout>
-                    </LinearLayout>
-                    <!--Address Tab Ends Here-->
-
-
-                </RelativeLayout>
-                <!--Partition 1 Ends-->
-
-                <View
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    />
+                <EditText
+                    android:id="@+id/name_edit_v"
+                    android:layout_marginTop="7dp"
                     android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    android:background="@android:color/darker_gray"/>
-                <!--Partition 2 Starts here-->
-                <RelativeLayout
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:hint="@string/name_hint">
+                </EditText>
+            </ViewSwitcher>
+        </RelativeLayout>
+        <!--Name text ends Here-->
+        <!--Name Ends here-->
+
+        <!--Phone starts here-->
+        <!--Phone title-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:text="@string/phone_title"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+        <!--Phone Title ends here-->
+
+        <!--Separator Line-->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#CC3300"
+            android:layout_gravity="bottom"/>
+        <!--Separator Line Ends Here-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ViewSwitcher
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/switcher_phone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/phone_text_v"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.8">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:textSize="17dp"
 
-                    <!--Buttons partitions starts here-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
+                    />
+                <EditText
+                    android:id="@+id/phone_edit_v"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:hint="@string/phone_hint"
+                    android:layout_marginTop="7dp">
+                </EditText>
+            </ViewSwitcher>
+            </RelativeLayout>
+        <!--Phone text here-->
+        <!--Phone Ends here-->
 
-                        <!--Sevame Call me-->
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:layout_gravity="center"
-                            android:gravity="center">
-                            <Button
-                                android:id="@+id/call_seva_me_button"
-                                android:layout_width="130dp"
-                                android:layout_height="40dp"
-                                android:text="@string/call_seva_me_title"/>
-                        </RelativeLayout>
-                        <!--Sevame Call me ends here-->
-                        <!--SevaMe Edit-->
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:layout_gravity="center"
-                            android:gravity="center">
 
-                            <Button
-                                android:id="@+id/edit_button"
-                                android:layout_width="130dp"
-                                android:layout_height="40dp"
-                                android:text="@string/edit_title"/>
-                        </RelativeLayout>
+        <!--service starts-->
+        <!--Service Title starts-->
+        <!--Phone title-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:text="@string/service_title"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+        <!--Service Title ends here-->
 
-                        <!--Sevame Edit Ends here-->
-                    </LinearLayout>
-                    <!--Buttons partitions Ends here-->
+        <!--Separator Line-->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#CC3300"
+            android:layout_gravity="bottom"/>
+        <!--Separator Line Ends Here-->
+        <!--Service Edit starts Here-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-                </RelativeLayout>
-                <!--Partition 2 ends here-->
-            </LinearLayout>
+            <ViewSwitcher
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/switcher_service"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/service_text_v"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:textSize="17dp"
+                    />
+                <EditText
+                    android:id="@+id/service_edit_v"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:textSize="17dp"
+                    android:hint="@string/service_hint"
+                    >
+                </EditText>
+            </ViewSwitcher>
+        </RelativeLayout>
+
+        <!--Service Text Ends here-->
+        <!--Service Ends here-->
+
+        <!--Experience Starts here-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:text="@string/experience_title"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+        <!--Experience Title ends here-->
+
+        <!--Separator Line-->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#CC3300"
+            android:layout_gravity="bottom"/>
+        <!--Separator Line Ends Here-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--Experience text starts here-->
+            <ViewSwitcher
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/switcher_experience"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:clickable="true"
+                    android:id="@+id/experience_text_v"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:textSize="17dp"
+                    />
+                <EditText
+                    android:id="@+id/experience_edit_v"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:textSize="17dp"
+                    android:hint="@string/experience_hint"
+                    >
+                </EditText>
+            </ViewSwitcher>
+
 
         </RelativeLayout>
-        <!--Bottom Box Ends here-->
 
-    </LinearLayout>
+        <!--Experience text ends here-->
+        <!--Experience Ends Here-->
+
+        <!--Address Starts here -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:text="@string/address"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+        <!--Address Title ends here-->
+
+        <!--Separator Line-->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#CC3300"
+            android:layout_gravity="bottom"/>
+
+        <!--Address 1 Starts here-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ViewSwitcher
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/switcher_address_1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/address_1_text_v"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:textSize="17dp"
+                    />
+                <EditText
+                    android:id="@+id/address_1_edit_v"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:textSize="17dp"
+                    android:hint="@string/address_hint"
+                    >
+                </EditText>
+            </ViewSwitcher>
+         </RelativeLayout>
+        <!--Address1 Ends here-->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/darker_gray"
+            android:layout_gravity="bottom"/>
+
+        <!--Address2  Starts Here-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ViewSwitcher
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/switcher_address_2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/address_2_text_v"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:textSize="17dp"
+                    />
+                <EditText
+                    android:id="@+id/address_2_edit_v"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:textSize="17dp"
+                    >
+                </EditText>
+            </ViewSwitcher>
+            </RelativeLayout>
+
+        <!--Address 2 Ends Here-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <!--Buttons partitions starts here-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <!--Sevame Call me-->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center">
+                <Button
+                    android:id="@+id/call_seva_me_button"
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
+                    android:text="@string/call_seva_me_title"/>
+            </RelativeLayout>
+            <!--Sevame Call me ends here-->
+            <!--SevaMe Edit-->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/edit_button"
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
+                    android:text="@string/edit_title"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+        </RelativeLayout>
+
+        <!--Buttons End here-->
+
+        </LinearLayout>
+    </ScrollView>
 
 
 </FrameLayout>

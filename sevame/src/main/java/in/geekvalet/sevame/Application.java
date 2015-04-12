@@ -8,8 +8,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.bind.DateTypeAdapter;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.PropertyNamingStrategy;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import java.util.Date;
 
@@ -110,6 +113,9 @@ public class Application extends android.app.Application {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setPropertyNamingStrategy(
                 PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+
+        mapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_DEFAULT.NON_NULL);
+        mapper.setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
         return mapper;
     }
 

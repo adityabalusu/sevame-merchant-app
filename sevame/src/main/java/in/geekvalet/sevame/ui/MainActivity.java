@@ -77,7 +77,7 @@ public class MainActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        Fragment fragment = new OpenJobList();
+        Fragment fragment = new AssignedJobList();
         Bundle args = new Bundle();
         args.putInt("jobType", 0);
         fragment.setArguments(args);

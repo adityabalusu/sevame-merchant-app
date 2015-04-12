@@ -2,6 +2,7 @@ package in.geekvalet.sevame.ui;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,13 +36,22 @@ public class SplashActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_activity);
-        //selectActivity();
-        doInBackground();
-        addListenerOnButton();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent openMainActivity =  new Intent(SplashActivity.this, LoginActivity.class);
+                startActivity(openMainActivity);
+                finish();
+
+            }
+        }, 5000);
+
 
         //new GcmRefreshService(this).invoke();
     }
 
+/*
     private void selectActivity() {
         DataStore dataStore = Application.getDataStore();
 
@@ -53,8 +63,9 @@ public class SplashActivity extends FragmentActivity {
             finish();
         }
     }
+*/
 
-    private void validateAuthToken() {
+  /*  private void validateAuthToken() {
         new AsyncTask<Object, Object, Response>() {
 
             @Override
@@ -107,11 +118,11 @@ public class SplashActivity extends FragmentActivity {
         Spinner dropdown = (Spinner)findViewById(R.id.spinner1);
         List<String> sList = new ArrayList<String>();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sList);
- /*       for (Service serv : serviceList) {
+ *//*       for (Service serv : serviceList) {
             Log.i("Test Mamu", serv.getName());
             //adapter.add(serv.getName());
             sList.add(serv.getName());
-        }*/
+        }*//*
         sList.add("Plumbing");
         dropdown.setAdapter(adapter);
     }
@@ -125,7 +136,7 @@ public class SplashActivity extends FragmentActivity {
                 startActivity(openLogin);
             }
         });
-    }
+    }*/
 
 
 }

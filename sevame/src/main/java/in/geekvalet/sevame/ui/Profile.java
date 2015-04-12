@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import org.apache.http.HttpEntity;
@@ -36,12 +37,19 @@ import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import in.geekvalet.sevame.Application;
 import in.geekvalet.sevame.R;
 import in.geekvalet.sevame.httpClient.HttpClientM;
+import in.geekvalet.sevame.httpClient.Models.ServiceProvider;
 import in.geekvalet.sevame.httpClient.Models.User;
 import in.geekvalet.sevame.libs.KeyValueStore;
 import in.geekvalet.sevame.model.Job;
@@ -64,6 +72,7 @@ public class Profile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         setHasOptionsMenu(true);
         getProfile();
+        getSP();
         final FragmentManager fragmentManager = getFragmentManager();
         clicked = false;
 
@@ -164,17 +173,56 @@ public class Profile extends Fragment {
                     user = mapper.readValue(client.get("user", null, null, null), User.class);
                 }catch (Exception ex){
                     ex.printStackTrace();
+                    return null;
                 }
                 return user;
             }
             @Override
             protected void onPostExecute(User user) {
-                populateProfile(user);
 
                 pDialog.dismiss();
+                if (user == null){
+                    Toast.makeText(getActivity(), "Error Connecting to network", Toast.LENGTH_LONG).show();
+                }else {
+                    populateProfile(user);
+                }
+
             }
         }.execute();
     }
+
+    private void getSP(){
+        //pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Please wait ..");
+        pDialog.show();
+        new AsyncTask<Object, Object, ServiceProvider>() {
+            @Override
+            protected ServiceProvider doInBackground(Object... params) {
+                HttpClientM client = new HttpClientM();
+                ServiceProvider serviceProvider = null;
+                ObjectMapper mapper = Application.getJacksonMapper();
+                try {
+                    serviceProvider = mapper.readValue(client.get("serviceprovider", null, null, null), ServiceProvider.class);
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                    return null;
+                }
+                return serviceProvider;
+            }
+            @Override
+            protected void onPostExecute(ServiceProvider sp) {
+
+                pDialog.dismiss();
+                if (sp == null){
+                    Toast.makeText(getActivity(), "Error Connecting to network", Toast.LENGTH_LONG).show();
+                }else {
+                    populateSp(sp);
+                }
+
+            }
+        }.execute();
+    }
+
 
 
     public void EditClicked(boolean editclicked){
@@ -218,17 +266,17 @@ public class Profile extends Fragment {
 
 
 
-       /* Address 3 */
+      /* *//* Address 3 *//*
         ViewSwitcher switcher_address3 = (ViewSwitcher) getView().findViewById(R.id.switcher_address_3);
         EditText edit_address3 = (EditText) getView().findViewById(R.id.address_3_edit_v);
         TextView textv_address3 = (TextView) getView().findViewById(R.id.address_3_text_v);
 
 
 
-       /* Address 4 */
+       *//* Address 4 *//*
         ViewSwitcher switcher_address4 = (ViewSwitcher) getView().findViewById(R.id.switcher_address_4);
         EditText edit_address4 = (EditText) getView().findViewById(R.id.address_4_edit_v);
-        TextView textv_address4 = (TextView) getView().findViewById(R.id.address_4_text_v);
+        TextView textv_address4 = (TextView) getView().findViewById(R.id.address_4_text_v);*/
 
 
 
@@ -239,8 +287,8 @@ public class Profile extends Fragment {
             switcher_experience.showNext();
             switcher_address1.showNext();
             switcher_address2.showNext();
-            switcher_address3.showNext();
-            switcher_address4.showNext();
+      /*      switcher_address3.showNext();
+            switcher_address4.showNext();*/
         }else{
             switcher.showPrevious();
             switcher_phone.showPrevious();
@@ -248,8 +296,8 @@ public class Profile extends Fragment {
             switcher_experience.showPrevious();
             switcher_address1.showPrevious();
             switcher_address2.showPrevious();
-            switcher_address3.showPrevious();
-            switcher_address4.showPrevious();
+          /*  switcher_address3.showPrevious();
+            switcher_address4.showPrevious();*/
         }
 
     }
@@ -259,11 +307,12 @@ public class Profile extends Fragment {
         EditText edit_name = (EditText) getView().findViewById(R.id.name_edit_v);
         EditText edit_phone = (EditText) getView().findViewById(R.id.phone_edit_v);
         EditText edit_service = (EditText) getView().findViewById(R.id.service_edit_v);
+        EditText edit_exp = (EditText) getView().findViewById(R.id.experience_edit_v);
         TextView textv_experience = (TextView) getView().findViewById(R.id.experience_text_v);
-        TextView textv_address1 = (TextView) getView().findViewById(R.id.address_1_text_v);
+        EditText textv_address1 = (EditText) getView().findViewById(R.id.address_1_edit_v);
         TextView textv_address2 = (TextView) getView().findViewById(R.id.address_2_text_v);
-        TextView textv_address3 = (TextView) getView().findViewById(R.id.address_3_text_v);
-        TextView textv_address4 = (TextView) getView().findViewById(R.id.address_4_text_v);
+/*        TextView textv_address3 = (TextView) getView().findViewById(R.id.address_3_text_v);
+        TextView textv_address4 = (TextView) getView().findViewById(R.id.address_4_text_v);*/
         User edit_user = new User();
 
         edit_user.name = edit_name.getText().toString();
@@ -277,12 +326,12 @@ public class Profile extends Fragment {
         if(!textv_address2.getText().toString().isEmpty()){
             address += textv_address2.getText().toString()+"++";
         }
-        if(!textv_address3.getText().toString().isEmpty()){
+/*        if(!textv_address3.getText().toString().isEmpty()){
             address += textv_address3.getText().toString()+"++";
         }
         if(!textv_address4.getText().toString().isEmpty()){
             address += textv_address3.getText().toString()+"++";
-        }
+        }*/
         edit_user.address = address;
 
         ObjectMapper mapper = Application.getJacksonMapper();
@@ -293,6 +342,7 @@ public class Profile extends Fragment {
         }
         catch(Exception ex){
             ex.printStackTrace();
+
         }
 
         final String userFJson = userJson;
@@ -302,68 +352,116 @@ public class Profile extends Fragment {
             HttpClientM clientM = new HttpClientM();
             @Override
             protected String doInBackground(Object... params) {
-        /*        clientM.post("user", userFJson, null, null);
-                return null;*/
-
-/*                HttpClient client = new DefaultHttpClient();
-                HttpConnectionParams.setConnectionTimeout(client.getParams(), 10000); //Timeout Limit
-                HttpResponse response;
-
-                HttpPut httpPut = new HttpPut("https://sevame.in/api/" + "user");
-                String authCode = Application.getDataStore().getAuthToken();
-                httpPut.setHeader("X-Session-Id", authCode);
-
-                try {
-
-                    StringEntity se = new StringEntity(userFJson);
-                    String repJson = null;
-                    se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-                    httpPut.setEntity(se);
-                    response = client.execute(httpPut);
-
-                    StatusLine statusLine = response.getStatusLine();
-                    int statusCode = statusLine.getStatusCode();
-                    if (statusCode == HttpStatus.SC_OK) {
-                        HttpEntity entity = response.getEntity();
-                        repJson = EntityUtils.toString(entity);
-                    }
-                    return  repJson;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //Toast.makeText("Erroe", "Error", "Cannot Estabilish Connection", );
-                }
-                return null;*/
                 return clientM.put("user", userFJson, null, null);
-
             }
             @Override
             protected void onPostExecute(String json) {
 
-                ObjectMapper mapper = Application.getJacksonMapper();
-                User userObj = null;
-                try {
-                    userObj = mapper.readValue(json, User.class);
-                }catch (Exception ex){
-                    ex.printStackTrace();
+                if (json == null){
+                    Toast.makeText(getActivity(), "Error Connecting to network", Toast.LENGTH_LONG).show();
+                }else {
+
+                    ObjectMapper mapper = Application.getJacksonMapper();
+                    User userObj = null;
+                    try {
+                        userObj = mapper.readValue(json, User.class);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    populateProfile(userObj);
                 }
-                populateProfile(userObj);
                 pDialog.dismiss();
             }
 
         }).execute();
+
+        String service = edit_service.getText().toString();
+        ServiceProvider sp = new ServiceProvider();
+        String sptxt = null;
+        sp.setExperience(Float.parseFloat(edit_exp.getText().toString()));
+        Map<String, Object> objMap = new HashMap<String, Object>();
+        objMap.put("name", service);
+        objMap.put("inspection", false);
+        List<Object> list = new ArrayList<Object>();
+        Map <String, Object> listwrapper = new HashMap<String, Object>();
+        list.add(objMap);
+        listwrapper.put(service, list);
+        try {
+            sp.setSkills(listwrapper);
+            sptxt = ow.writeValueAsString(sp);
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+
+        }
+
+        final String spJson = sptxt;
+
+     /*   final String spJson = "{\"experience\":"+Float.parseFloat(edit_exp.getText().toString())+",\"skills\":{" +
+                "\""+service+"\":[{}]"+"}}";*/
+        (new AsyncTask<Object, Object, String>() {
+            HttpClientM clientM = new HttpClientM();
+            @Override
+            protected String doInBackground(Object... params) {
+                return clientM.put("serviceprovider", spJson, null, null);
+            }
+            @Override
+            protected void onPostExecute(String json) {
+
+                if (json == null){
+                    Toast.makeText(getActivity(), "Error Connecting to network", Toast.LENGTH_LONG).show();
+                }else {
+
+                    ObjectMapper mapper = Application.getJacksonMapper();
+                    ServiceProvider spObj = null;
+                    try {
+                        spObj = mapper.readValue(json, ServiceProvider.class);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    populateSp(spObj);
+                }
+                pDialog.dismiss();
+            }
+
+        }).execute();
+
+    }
+
+
+    private void populateSp(ServiceProvider sp){
+        TextView exp_tv = (TextView)getView().findViewById(R.id.experience_text_v);
+        exp_tv.setText(String.valueOf(sp.getExperience()));
+        Object  sj = sp.getSkills();
+        LinkedHashMap obj =  (LinkedHashMap) sp.getSkills();
+        Set<Map.Entry<String, Object>> mapValues = obj.entrySet();
+        int maplength = mapValues.size();
+        final Map.Entry<String,Object>[] mEntries = new Map.Entry[maplength];
+        mapValues.toArray(mEntries);
+        String svType =  (String)mEntries[0].getKey();
+
+       TextView serv_tv = (TextView)getView().findViewById(R.id.service_text_v);
+        serv_tv.setText(svType);
     }
 
     private void populateProfile(User user){
         // Set all others
         TextView tv = (TextView)getView().findViewById(R.id.name_text_v);
         tv.setText(user.name);
-        ImageView imgView= (ImageView)getView().findViewById(R.id.s_verified);
+
+        TextView txt_pne = (TextView)getView().findViewById(R.id.phone_text_v);
+        txt_pne.setText(user.phoneNumber);
+
+        TextView txt_address = (TextView)getView().findViewById(R.id.address_1_text_v);
+        txt_address.setText(user.address);
+
+ /*       ImageView imgView= (ImageView)getView().findViewById(R.id.s_verified);
 
         if(user.verified == false){
             imgView.setImageResource(R.drawable.ic_action_unv);
         }else{
             imgView.setImageResource(R.drawable.ic_verfied);
-        }
+        }*/
     }
 
 }

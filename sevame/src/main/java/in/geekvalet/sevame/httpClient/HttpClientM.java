@@ -29,13 +29,13 @@ import in.geekvalet.sevame.Application;
 public class HttpClientM {
 
     //final String sevameURI = "https://sevame.in/api";
-    public String get(String uri, String request, Map<String, String>qParam, Map<String, String> pathVar){
+    public String get(String uri, String request, Map<String, String> qParam, Map<String, String> pathVar) {
         HttpClient httpClient = new DefaultHttpClient();
 
       /*  Uri.Builder builder = new Uri.Builder();
         builder.scheme("https").authority("sevame.in/api").appendPath(uri);
         String url = builder.build().toString();*/
-        HttpGet httpGet = new HttpGet("https://sevame.in/api/"+uri);
+        HttpGet httpGet = new HttpGet("https://sevame.in/api/" + uri);
         String authCode = Application.getDataStore().getAuthToken();
         httpGet.setHeader("X-Session-Id", authCode);
         String entity = null;
@@ -44,25 +44,23 @@ public class HttpClientM {
             HttpResponse response = httpClient.execute(httpGet); // execute httpGet
             StatusLine statusLine = response.getStatusLine();
             int statusCode = statusLine.getStatusCode();
-            if (statusCode == HttpStatus.SC_OK) {
+
                 HttpEntity e = response.getEntity();
                 entity = EntityUtils.toString(e);
-                return entity;
-                //return entity;
-                //body.append(entity);
-            } else {
-                //body.append(statusLine + "\n");
-                // System.out.println(statusLine);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-             // stop connection
+;
+        } catch ( Exception e) {
+            return null;
         }
+         /*   e.printStackTrace();*/
+   /*     } catch (Exception e) {
+            return null;
+
+        }*/
         return entity;
+
     }
+
+
 
     public String post(String uri, String request, Map<String, String>qParam, Map<String, String> pathVar){
         HttpClient client = new DefaultHttpClient();
@@ -78,7 +76,7 @@ public class HttpClientM {
             httpPost.setEntity(se);
             response = client.execute(httpPost);
         } catch(Exception e) {
-            e.printStackTrace();
+            return null;
             //Toast.makeText("Erroe", "Error", "Cannot Estabilish Connection", );
         }
 

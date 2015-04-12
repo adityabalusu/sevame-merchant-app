@@ -15,49 +15,10 @@
         android:textStyle="bold|normal"
         android:textSize="50sp"
         android:textIsSelectable="false"
-        android:layout_marginTop="51dp"
+        android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/textView" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/text_splash_screen_start_providing"
-        android:id="@+id/S1Txt1"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/text_splash_screen_seva_service"
-        android:id="@+id/S1Txt2"
-        android:layout_alignTop="@+id/S1Txt1"
-        android:layout_alignBottom="@+id/S1Txt1"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go"
-        android:id="@+id/screen1_go_button"
-        android:layout_marginTop="68dp"
-        android:layout_below="@+id/S1Txt1"
-        android:layout_centerHorizontal="true" />
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner1"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/S1Txt2"
-        android:layout_toEndOf="@+id/S1Txt1"
-        android:layout_toRightOf="@+id/S1Txt1"></Spinner>
+        android:layout_marginTop="144dp" />
 
 
 </RelativeLayout>
