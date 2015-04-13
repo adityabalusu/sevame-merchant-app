@@ -45,7 +45,7 @@ public class AssignedListAdapter extends ArrayAdapter<SJob>{
         TextView assignOrderId = (TextView) convertView.findViewById(R.id.assign_order_id);
         TextView assignTime = (TextView) convertView.findViewById(R.id.assign_time);
         // Populate the data into the template view using the data object
-        assignOrderId.setText("ID: "+String.valueOf(job.getJobId()));
+        assignOrderId.setText(job.getAddress());
         assignTime.setText(job.getAppointTime());
         // Return the completed view to render on screen
         return convertView;

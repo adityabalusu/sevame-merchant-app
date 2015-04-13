@@ -18,6 +18,7 @@ import java.util.List;
 import in.geekvalet.sevame.Application;
 import in.geekvalet.sevame.DataStore;
 import in.geekvalet.sevame.R;
+import in.geekvalet.sevame.libs.KeyValueStore;
 import in.geekvalet.sevame.model.Service;
 import in.geekvalet.sevame.model.ServiceProvider;
 import in.geekvalet.sevame.service.GcmRefreshService;
@@ -40,15 +41,21 @@ public class SplashActivity extends FragmentActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent openMainActivity =  new Intent(SplashActivity.this, LoginActivity.class);
-                startActivity(openMainActivity);
-                finish();
+                KeyValueStore kv = Application.getDataStore().getKeyStore();
+                boolean conset = kv.getBoolean("consetAccepted", false);
+                if (conset) {
+                    Intent openMainActivity = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(openMainActivity);
+                    finish();
+                }else {
+
+                    Intent openMainActivity = new Intent(SplashActivity.this, LoginActivity.class);
+                    startActivity(openMainActivity);
+                    finish();
+                }
 
             }
         }, 5000);
-
-
-        //new GcmRefreshService(this).invoke();
     }
 
 /*

@@ -1,8 +1,11 @@
 package in.geekvalet.sevame.httpClient.Models;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * Created by root on 4/11/15.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User{
 
   public String phoneNumber;
@@ -12,6 +15,7 @@ public class User{
   public String gcmRegId;
   public String address;
   public String email;
+
 
     public User() {
         //this.phoneNumber = phoneNumber;

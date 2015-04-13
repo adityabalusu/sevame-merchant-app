@@ -1,7 +1,9 @@
 package in.geekvalet.sevame.ui;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
@@ -16,11 +18,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
+
+import java.io.ObjectInputStream;
 
 import in.geekvalet.sevame.R;
+import in.geekvalet.sevame.model.Job;
 import in.geekvalet.sevame.util.ObjectDrawerItem;
 
 public class MainActivity extends ActionBarActivity {
@@ -32,6 +41,9 @@ public class MainActivity extends ActionBarActivity {
     ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
+    private RelativeLayout mRelativeLayout;
+    private ToggleButton availableButton;
+    private ProgressDialog pDailog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +53,9 @@ public class MainActivity extends ActionBarActivity {
         mNavigationDrawerItemTitles= getResources().getStringArray(R.array.navigation_drawer_items_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        pDailog = new ProgressDialog(this);
+        mRelativeLayout = (RelativeLayout)findViewById(R.id.sidebar_rel_layout);
 
         ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[3];
 
@@ -64,6 +79,7 @@ public class MainActivity extends ActionBarActivity {
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
+                mDrawerLayout.closeDrawer(mRelativeLayout);
                 getActionBar().setTitle(mTitle);
             }
 
@@ -71,10 +87,26 @@ public class MainActivity extends ActionBarActivity {
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 getActionBar().setTitle(mDrawerTitle);
+                mDrawerLayout.openDrawer(mRelativeLayout);
             }
         };
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+
+        availableButton = (ToggleButton)findViewById(R.id.available_toggle);
+        availableButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Button is Off", Toast.LENGTH_LONG);
+                }
+
+            }
+        });
+
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         Fragment fragment = new AssignedJobList();
@@ -193,10 +225,31 @@ public class MainActivity extends ActionBarActivity {
             mDrawerList.setItemChecked(position, true);
             mDrawerList.setSelection(position);
             getActionBar().setTitle(mNavigationDrawerItemTitles[position]);
-            mDrawerLayout.closeDrawer(mDrawerList);
+            //mDrawerLayout.closeDrawer(mDrawerList);
+            mDrawerLayout.closeDrawer(mRelativeLayout);
 
         } else {
             //Log.e("MainActivity", "Error in creating fragment");
         }
+    }
+
+    private void updateAvailability(boolean avail){
+
+        pDailog.setMessage("Please wait ...");
+        pDailog.show();
+        new AsyncTask<Object, Object, Boolean>(){
+
+            @Override
+            protected Boolean doInBackground(Object... params) {
+                return null;
+            }
+            @Override
+            protected void onPostExecute(Boolean avail) {
+
+            }
+        }.execute();
+
+
+
     }
 }

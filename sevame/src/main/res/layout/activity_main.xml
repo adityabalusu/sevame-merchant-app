@@ -7,6 +7,12 @@
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <RelativeLayout
+        android:id="@+id/sidebar_rel_layout"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start">
+        
     <ListView
         android:id="@+id/left_drawer"
         android:layout_width="240dp"
@@ -16,5 +22,14 @@
         android:choiceMode="singleChoice"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp" />
+        
+        <ToggleButton
+            android:id="@+id/available_toggle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:textOn="@string/available"
+            android:textOff="@string/unavailable"/>
+    </RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>

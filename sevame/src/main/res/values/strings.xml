@@ -68,6 +68,8 @@
     <string name="material_name">Name : </string>
     <string name="material_cost">Cost : </string>
     <string name="cus_name_title">Customer Name</string>
+    <string name="available">Available</string>
+    <string name="unavailable">UnAvailable</string>
 
     <!--Hints-->
     <string name="name_hint">Name</string>
@@ -75,6 +77,7 @@
     <string name="service_hint">Service</string>
     <string name="experience_hint">Experience</string>
     <string name="address_hint">Address</string>
+
 
 
 </resources>

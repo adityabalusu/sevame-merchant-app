@@ -65,7 +65,7 @@ public class LoginActivity extends Activity implements ConnectionCallbacks, OnCo
     private boolean mIntentInProgress;
     private ConnectionResult mConnectionResult;
     private boolean mSignInClicked;
-
+    private boolean googleVerified;
  ;
     private SignInButton btnGplusLogin;
     private ProgressDialog pDialog;
@@ -84,19 +84,18 @@ public class LoginActivity extends Activity implements ConnectionCallbacks, OnCo
                 .addApi(Plus.API, Plus.PlusOptions.builder().build())
                 .addScope(Plus.SCOPE_PLUS_LOGIN).build();
 
-        pDialog = new ProgressDialog(getApplicationContext());
-        pDialog.setMessage("Please Wait");
-
-
+        pDialog = new ProgressDialog(this);
+        pDialog.setMessage("Signing in ..");
+        googleVerified = false;
         btnGplusLogin = (SignInButton) findViewById(R.id.sign_in_button);
         btnGplusLogin.setSize(SignInButton.SIZE_WIDE);
         btnGplusLogin.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View view) {
+                pDialog.show();
                 if (view.getId() == R.id.sign_in_button && !mGoogleApiClient.isConnecting()) {
                     mSignInClicked = true;
-                    mGoogleApiClient.connect();
+                    resolveSignInError();
                 }
                 //signInWithGplus();
             }
@@ -131,6 +130,9 @@ public class LoginActivity extends Activity implements ConnectionCallbacks, OnCo
         mSignInClicked = false;
 
         pDialog.dismiss();
+        googleVerified = true;
+        KeyValueStore keyValueStore= Application.getDataStore().getKeyStore();
+        keyValueStore.write("consetAccepted", googleVerified);
         Toast.makeText(this, "Successfully logged in", Toast.LENGTH_LONG).show();
         Intent openMainActivity = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(openMainActivity);
@@ -146,33 +148,18 @@ public class LoginActivity extends Activity implements ConnectionCallbacks, OnCo
     @Override
     public void onConnectionFailed(ConnectionResult result) {
 
-
         if (!mIntentInProgress) {
-            if (mSignInClicked && result.hasResolution()) {
-                // The user has already clicked 'sign-in' so we attempt to resolve all
-                // errors until the user is signed in, or they cancel.
-                try {
-                    result.startResolutionForResult(this, RC_SIGN_IN);
-                    //resolveSignInError();
-                    mIntentInProgress = true;
-                } catch (IntentSender.SendIntentException e) {
-                    // The intent was canceled before it was sent.  Return to the default
-                    // state and attempt to connect to get an updated ConnectionResult.
-                    mIntentInProgress = false;
-                    mGoogleApiClient.connect();
-                }
-            }
+            mConnectionResult = result;
         }
-
-
+        if (mSignInClicked){
+            mConnectionResult = result;
+        }
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int responseCode,
                                     Intent intent) {
-
-    //    pDialog = new ProgressDialog(getApplicationContext());
         if (requestCode == RC_SIGN_IN) {
             if (responseCode != RESULT_OK) {
                 mSignInClicked = false;
@@ -182,52 +169,33 @@ public class LoginActivity extends Activity implements ConnectionCallbacks, OnCo
 
             if (!mGoogleApiClient.isConnecting()) {
                 mGoogleApiClient.connect();
-  /*              if(pDialog != null){
-                    pDialog.show();
-                }*/
-//                pDialog.setMessage("Please wait ...");
-  //              pDialog.show();
             }
         }
     }
 
-
-    /**
-     * Sign-in into google
-/*     * *//*
-    private void signInWithGplus() {
-        if (!mGoogleApiClient.isConnecting()) {
-            mSignInClicked = true;
-            resolveSignInError();
-        }
-    }*/
 
     /**
      * Method to resolve any signin errors
      * */
     private void resolveSignInError() {
-        if (mConnectionResult.hasResolution()) {
-            try {
-                mIntentInProgress = true;
-                mConnectionResult.startResolutionForResult(this, RC_SIGN_IN);
-            } catch (IntentSender.SendIntentException e) {
-                mIntentInProgress = false;
-                mGoogleApiClient.connect();
+
+        if(mConnectionResult == null){
+            Toast.makeText(getApplicationContext(), "Error connecting", Toast.LENGTH_SHORT).show();
+        }else{
+            if (mConnectionResult.hasResolution()) {
+                try {
+                    mIntentInProgress = true;
+                    startIntentSenderForResult(mConnectionResult.getResolution().getIntentSender(),
+                            RC_SIGN_IN, null, 0, 0, 0);
+                } catch (IntentSender.SendIntentException e) {
+                    // The intent was canceled before it was sent.  Return to the default
+                    // state and attempt to connect to get an updated ConnectionResult.
+                    mIntentInProgress = false;
+                    mGoogleApiClient.connect();
+                }
             }
         }
     }
-
-   /* @Override
-    public CheckResult onCheckServerAuthorization(String s, Set<Scope> scopes) {
-        return null;
-    }
-
-    @Override
-    public boolean onUploadServerAuthCode(String s, String s2) {
-        return false;
-    }*/
-
-
 
 
     @Override

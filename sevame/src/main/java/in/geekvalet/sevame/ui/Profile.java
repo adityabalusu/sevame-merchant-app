@@ -2,6 +2,7 @@ package in.geekvalet.sevame.ui;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -107,10 +108,13 @@ public class Profile extends Fragment {
             @Override
             public void onClick(View v) {
                 if (sevaCallButtonToggle){
-                    //Call Seva Me;
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:8792790675"));
+                    startActivity(callIntent);
                 }else{
                     EditClicked(true);
                     getProfile();
+                    getSP();
                     editButton.setText("Edit");
                     callSevaMe.setText("Call Sevame");
                     sevaCallButtonToggle = true;
@@ -265,28 +269,19 @@ public class Profile extends Fragment {
         TextView textv_address2 = (TextView) getView().findViewById(R.id.address_2_text_v);
 
 
-
-      /* *//* Address 3 *//*
-        ViewSwitcher switcher_address3 = (ViewSwitcher) getView().findViewById(R.id.switcher_address_3);
-        EditText edit_address3 = (EditText) getView().findViewById(R.id.address_3_edit_v);
-        TextView textv_address3 = (TextView) getView().findViewById(R.id.address_3_text_v);
-
-
-
-       *//* Address 4 *//*
-        ViewSwitcher switcher_address4 = (ViewSwitcher) getView().findViewById(R.id.switcher_address_4);
-        EditText edit_address4 = (EditText) getView().findViewById(R.id.address_4_edit_v);
-        TextView textv_address4 = (TextView) getView().findViewById(R.id.address_4_text_v);*/
-
-
-
         if (editclicked) {
             switcher.showNext();
+            edit_name.setText(textv_name.getText());
             switcher_phone.showNext();
+            edit_phone.setText(textv_phone.getText());
             switcher_service.showNext();
+            edit_service.setText(textv_service.getText());
             switcher_experience.showNext();
+            edit_experience.setText(textv_experience.getText());
             switcher_address1.showNext();
+            edit_address1.setText(textv_address1.getText());
             switcher_address2.showNext();
+            edit_address2.setText(textv_address2.getText());
       /*      switcher_address3.showNext();
             switcher_address4.showNext();*/
         }else{
@@ -376,16 +371,20 @@ public class Profile extends Fragment {
         }).execute();
 
         String service = edit_service.getText().toString();
+
         ServiceProvider sp = new ServiceProvider();
         String sptxt = null;
         sp.setExperience(Float.parseFloat(edit_exp.getText().toString()));
-        Map<String, Object> objMap = new HashMap<String, Object>();
-        objMap.put("name", service);
-        objMap.put("inspection", false);
-        List<Object> list = new ArrayList<Object>();
-        Map <String, Object> listwrapper = new HashMap<String, Object>();
-        list.add(objMap);
-        listwrapper.put(service, list);
+        Map<String, Object> listwrapper =  null;
+        if (service != null) {
+            Map<String, Object> objMap = new HashMap<String, Object>();
+            objMap.put("name", service);
+            objMap.put("inspection", false);
+            List<Object> list = new ArrayList<Object>();
+            listwrapper = new HashMap<String, Object>();
+            list.add(objMap);
+            listwrapper.put(service, list);
+        }
         try {
             sp.setSkills(listwrapper);
             sptxt = ow.writeValueAsString(sp);
@@ -434,11 +433,22 @@ public class Profile extends Fragment {
         exp_tv.setText(String.valueOf(sp.getExperience()));
         Object  sj = sp.getSkills();
         LinkedHashMap obj =  (LinkedHashMap) sp.getSkills();
-        Set<Map.Entry<String, Object>> mapValues = obj.entrySet();
-        int maplength = mapValues.size();
-        final Map.Entry<String,Object>[] mEntries = new Map.Entry[maplength];
-        mapValues.toArray(mEntries);
-        String svType =  (String)mEntries[0].getKey();
+        Set<Map.Entry<String, Object>> mapValues = null;
+        String svType = null;
+        if (!obj.isEmpty()){
+            mapValues = obj.entrySet();
+            if (mapValues != null){
+
+                int maplength = mapValues.size();
+                final Map.Entry<String,Object>[] mEntries = new Map.Entry[maplength];
+                mapValues.toArray(mEntries);
+                svType =  (String)mEntries[0].getKey();
+            }
+
+        }
+
+
+
 
        TextView serv_tv = (TextView)getView().findViewById(R.id.service_text_v);
         serv_tv.setText(svType);
@@ -447,14 +457,27 @@ public class Profile extends Fragment {
     private void populateProfile(User user){
         // Set all others
         TextView tv = (TextView)getView().findViewById(R.id.name_text_v);
-        tv.setText(user.name);
+        if (user.name == null){
+            tv.setText("Not Set");
+        }else{
+            tv.setText(user.name);
+        }
+
+
 
         TextView txt_pne = (TextView)getView().findViewById(R.id.phone_text_v);
-        txt_pne.setText(user.phoneNumber);
+        if(user.phoneNumber == null){
+            txt_pne.setText("Not Set");
+        }else {
+            txt_pne.setText(user.phoneNumber);
+        }
 
         TextView txt_address = (TextView)getView().findViewById(R.id.address_1_text_v);
-        txt_address.setText(user.address);
-
+        if (user.address == null){
+            txt_address.setText("Not Set");
+        }else{
+            txt_address.setText(user.address);
+        }
  /*       ImageView imgView= (ImageView)getView().findViewById(R.id.s_verified);
 
         if(user.verified == false){
