@@ -4,6 +4,7 @@ sevame/build/*
 *.iml
 local.properties
 build/*
+sevame/*
 
 #Ignore release and build files
 sevame/src/release/
